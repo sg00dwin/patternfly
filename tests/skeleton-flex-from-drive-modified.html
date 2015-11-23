@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+html,body {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+p {
+  margin: 0 50px;
+  padding: 50px 0;
+}
+/*.p1,.p2,.p3,.p4,.p5,.p6,.p7 {
+  padding: 1px;
+}*/
+[height] {
+  background: rgba(125,150,175, .3);
+}
+[height="800"] {
+  min-height: 800px;
+}
+[height="1600"] {
+  min-height: 1600px;
+}
+.p0 {
+  display: flex;
+  display: -ms-flexbox;
+  flex-direction:column;
+  -ms-flex-direction:column;
+  height: 100%;
+  width: 100%;
+  overflow-y: hidden;
+}
+.p0-c1 {
+  flex: 0 0 auto;
+  -ms-flex: 0 0 auto;
+  position: relative;
+  width: 100%;
+  background: tomato;
+}
+.p0-c2 {
+  flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  width:100%;
+  height:100%;
+}
+  .p1 {
+    display: flex;
+    display: -ms-flexbox;
+    height: 100%;
+    width: 100%;
+  }
+  .p1-c1 {
+    flex:1 1 auto;
+    -ms-flex: 1 1 auto;
+    position: relative;
+    width:100%;
+  }
+    .p2-c1 {
+      height: 100%;
+      width:100%;
+      position: absolute;
+    }
+      .p3-c1 {
+        display: flex;
+        display: -ms-flexbox;
+        flex-direction:row;
+        -ms-flex-direction: row;
+        overflow-y:hidden;
+        height: 100%;
+        width: 100%;
+      }
+        .p4-c1 { /* left column */ background: skyblue;
+          flex: 0 0 auto;
+          -ms-flex: 0 0 auto;
+          height: 100%;
+          min-width: 150px;
+          position: relative;
+          /* width:0px; inline wtf? */
+        }
+        .p4-c2 { /* main parent containing middle and right col */
+          flex: 2 1 auto;
+          -ms-flex: 1 1 auto;
+          height: 100%;
+          width: 100%;
+          position: relative;
+        }
+          .p5-c1 {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+          }
+            .p7-c1 {
+              display: flex;
+              display: -ms-flexbox;
+              flex-direction: column;
+              -ms-flex-direction: column;
+              height: 100%;
+              width: 100%;
+            }
+              .p8-c1 {
+                flex: 1 1 auto;
+                -ms-flex: 1 1 auto;
+                position: relative;
+              }
+                .p9-c1 {
+                  bottom:0;
+                  top:0;
+                  left:0;
+                  right:0;
+                  position: absolute;
+                }
+                  .p10-c1 { /*actual main div*/
+                    border: 1px solid tomato;
+                    overflow-y: auto;
+                    height: 100%;
+                  }
+        .p4-c3 {
+          background: orange;
+          flex: 0 0 375px;
+          -ms-flex: 0 0 375px;
+          height: 100%;
+          width: 100%;
+          overflow-y: auto;
+          position: relative;
+        }
+            /*.p7-c2 { sidebar-right
+              border: 1px solid lime;
+              position: absolute;
+              right: 0;
+              top: 0;
+              height: 100%;
+              overflow: hidden;
+              z-index: 4;
+              width:375px;
+            }
+              .p8-c2 {
+                display: flex;
+                display: -ms-flexbox;
+                height: 100%;
+              }
+                .p9-c2 {
+                  flex:1 1 auto;
+                  -ms-flex: 1 1 auto;
+                  position: relative;
+                }
+                  .p10-c2 {
+                    position: absolute;
+                    height: 100%;
+                    width: 100%;
+                  }
+                    .p11-c2 {
+                      height: 100%;
+                      width:100%;
+                    }
+                      .p12-c2 {
+                        position: relative;
+                        height: 100%;
+                        overflow-y: auto;
+                        box-sizing:border-box;
+                      }*/
+
+              
+</style>
+</head>
+<body>
+<div class="p0">
+  <div class="p0-c1">p0-c1</div>
+  <div class="p0-c2">
+    <div class="p1">
+      <div class="p1-c1 p2">
+        <div class="p2-c1 p3">
+          <div class="p3-c1 p4">
+            <div class="p4-c1">p4-c1</div>
+            <div class="p4-c2 p5">
+              <div class="p5-c1">
+                <div class="p7-c1 p8">p7-c1
+                  <div class="p8-c1 p9">p8-c1
+                    <div class="p9-c1 p10">p9-c1
+                      <div class="p10-c1">p10-c1
+                        <div height>
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget venenatis ex. Mauris et metus urna. Nam non vehicula sapien. Cras erat velit, pulvinar semper mattis in, vehicula id metus. Cras euismod massa vitae ullamcorper vehicula. Sed vel faucibus ante. Phasellus aliquet pellentesque condimentum. Suspendisse vitae viverra tortor.</p>
+
+                          <p>Nam euismod tellus scelerisque diam lacinia tincidunt. Suspendisse cursus magna non magna rutrum pharetra. Cras vel nibh neque. Aliquam ullamcorper dui eget gravida fringilla. Aenean orci erat, elementum sed dui id, sagittis pellentesque turpis. Proin sit amet mattis augue. Duis eget dui at ipsum efficitur faucibus eu sed sapien. Donec odio quam, fermentum ac ultrices at, tristique non ipsum. Phasellus rutrum, augue sit amet suscipit vestibulum, nulla nunc placerat mauris, molestie mollis turpis odio at orci. Nulla et leo eget metus cursus lacinia eu vitae quam. Pellentesque sit amet velit turpis. Donec maximus ex tempor justo euismod, vitae porta augue consequat.
+                          </p>
+
+                          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget venenatis ex. Mauris et metus urna. Nam non vehicula sapien. Cras erat velit, pulvinar semper mattis in, vehicula id metus. Cras euismod massa vitae ullamcorper vehicula. Sed vel faucibus ante. Phasellus aliquet pellentesque condimentum. Suspendisse vitae viverra tortor.</p>
+
+                          <p>
+                          Etiam nisl urna, sollicitudin nec diam eu, iaculis egestas justo. Proin interdum sodales mi, eu finibus diam scelerisque at. Sed risus justo, suscipit vitae porta ut, faucibus ac enim. Maecenas turpis enim, ultricies et felis in, gravida tempor nibh. Nam et bibendum est. Nam fringilla suscipit elit, vitae pretium dolor bibendum eget. Etiam dapibus faucibus risus, et posuere quam. Nullam et ultrices neque.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+               <!--  <div class="p7-c2">p7-c2
+                  <div class="p8-c2">
+                    <div class="p9-c2">
+                      <div class="p10-c2">
+                        <div class="p11-c2">
+                          <div class="p12-c2">
+                            <div height>
+                              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget venenatis ex. Mauris et metus urna. Nam non vehicula sapien. Cras erat velit, pulvinar semper mattis in, vehicula id metus. Cras euismod massa vitae ullamcorper vehicula. Sed vel faucibus ante. Phasellus aliquet pellentesque condimentum. Suspendisse vitae viverra tortor.</p>
+
+                              <p>
+                              Etiam nisl urna, sollicitudin nec diam eu, iaculis egestas justo. Proin interdum sodales mi, eu finibus diam scelerisque at. Sed risus justo, suscipit vitae porta ut, faucibus ac enim. Maecenas turpis enim, ultricies et felis in, gravida tempor nibh. Nam et bibendum est. Nam fringilla suscipit elit, vitae pretium dolor bibendum eget. Etiam dapibus faucibus risus, et posuere quam. Nullam et ultrices neque.
+                              </p>
+
+                              <p>Nam euismod tellus scelerisque diam lacinia tincidunt. Suspendisse cursus magna non magna rutrum pharetra. Cras vel nibh neque. Aliquam ullamcorper dui eget gravida fringilla. Aenean orci erat, elementum sed dui id, sagittis pellentesque turpis. 
+                          </p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div> -->
+              </div>
+            </div>
+            <div class="p4-c3">
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget venenatis ex. Mauris et metus urna. Nam non vehicula sapien. Cras erat velit, pulvinar semper mattis in, vehicula id metus. Cras euismod massa vitae ullamcorper vehicula. Sed vel faucibus ante. Phasellus aliquet pellentesque condimentum. Suspendisse vitae viverra tortor.</p>
+
+              <p>
+              Etiam nisl urna, sollicitudin nec diam eu, iaculis egestas justo. Proin interdum sodales mi, eu finibus diam scelerisque at. Sed risus justo, suscipit vitae porta ut, faucibus ac enim. Maecenas turpis enim, ultricies et felis in, gravida tempor nibh. Nam et bibendum est. Nam fringilla suscipit elit, vitae pretium dolor bibendum eget. Etiam dapibus faucibus risus, et posuere quam. Nullam et ultrices neque.
+              </p>
+
+              <p>Nam euismod tellus scelerisque diam lacinia tincidunt. Suspendisse cursus magna non magna rutrum pharetra. Cras vel nibh neque. Aliquam ullamcorper dui eget gravida fringilla. Aenean orci erat, elementum sed dui id, sagittis pellentesque turpis. 
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

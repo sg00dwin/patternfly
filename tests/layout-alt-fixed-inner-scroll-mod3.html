@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="ie9 layout-pf-alt layout-pf-alt-fixed layout-pf-alt-fixed-inner-scroll"><![endif]-->
+<!--[if gt IE 9]><!-->
+<html class="layout-pf-alt layout-pf-alt-fixed layout-pf-alt-fixed-inner-scroll">
+  <!--<![endif]-->
+    <head>
+    <title>Fixed Navbar Alt With Fixed Left Nav Alt, Inner Scroll - PatternFly</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="../dist/img/favicon.ico">
+    <!-- iPad retina icon -->
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../dist/img/apple-touch-icon-precomposed-152.png">
+    <!-- iPad retina icon (iOS < 7) -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="../dist/img/apple-touch-icon-precomposed-144.png">
+    <!-- iPad non-retina icon -->
+    <link rel="apple-touch-icon-precomposed" sizes="76x76" href="../dist/img/apple-touch-icon-precomposed-76.png">
+    <!-- iPad non-retina icon (iOS < 7) -->
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../dist/img/apple-touch-icon-precomposed-72.png">
+    <!-- iPhone 6 Plus icon -->
+    <link rel="apple-touch-icon-precomposed" sizes="120x120" href="../dist/img/apple-touch-icon-precomposed-180.png">
+    <!-- iPhone retina icon (iOS < 7) -->
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../dist/img/apple-touch-icon-precomposed-114.png">
+    <!-- iPhone non-retina icon (iOS < 7) -->
+    <link rel="apple-touch-icon-precomposed" sizes="57x57" href="../dist/img/apple-touch-icon-precomposed-57.png">
+    <link href="../dist/css/patternfly.min.css" rel="stylesheet" media="screen, print">
+    <link href="../dist/css/patternfly-additions.min.css" rel="stylesheet" media="screen, print">
+    <script src="../components/jquery/dist/jquery.min.js"></script>
+    <script src="../components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../components/matchHeight/jquery.matchHeight-min.js"></script>
+    <script src="../components/c3/c3.min.js"></script>
+    <script src="../components/d3/d3.min.js"></script>
+    <script src="../dist/js/patternfly.min.js"></script>
+    <style type="text/css">
+    body {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+    p {
+      margin: 0 50px;
+      padding: 50px 0;
+    }
+    /*[height] {
+      background: rgba(125, 145, 165, .3);
+      min-height: 800px;
+    }*/
+    .console-os .wrap {
+      display: flex;
+      flex-direction:row;
+      flex: 1 0 auto;
+      background: rgba(125, 145, 165, .3);
+    }
+    /*.console-os .wrap-inner {
+      display: flex;
+      height: 100%;
+    }*/
+    .console-os .container-main {
+      flex: 1 1 auto;
+      height: 100%;
+      background: skyblue;
+      padding: 0 2em;
+      margin: 0;
+      /* width: 100%; DO NOT USE */
+    }
+    .console-os .sidebar-right-os {
+      width: 375px;
+      outline: 1px solid skyblue;
+    }
+    .layout-pf-alt-fixed .nav-pf-vertical-alt {
+      flex:none;
+    }
+
+    </style>
+  </head>
+  <body class="console-os">
+
+  <nav class="navbar navbar-pf-alt">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">
+        <img class="navbar-brand-icon" src="../dist/img/logo-alt.svg" alt=""/><img class="navbar-brand-name" src="../dist/img/brand-alt.svg" alt="PatternFly Enterprise Application" />
+      </a>
+    </div>
+    <nav class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li><a href="#" target="_blank" class="nav-item-iconic nav-item-iconic-new-window"><span title="Launch" class="fa fa-external-link"></span></a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right navbar-iconic">
+        <li class="dropdown">
+          <a class="dropdown-toggle nav-item-iconic" id="notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span title="Notifications" class="fa pficon-flag"></span>
+            <span class="badge">2</span>
+          </a>
+          <div class="dropdown-menu infotip bottom-right">
+            <div class="arrow"></div>
+            <ul class="list-group">
+              <li class="list-group-item">
+                <span class="i pficon pficon-info"></span> Modified Datasources ExampleDS
+              </li>
+              <li class="list-group-item">
+                <span class="i pficon pficon-info"></span> Error: System Failure
+              </li>
+            </ul>
+            <div class="footer">
+              <a>Clear Messages</a>
+            </div>
+          </div>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle nav-item-iconic" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span title="Help" class="fa pficon-help"></span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="#">Help</a></li>
+            <li><a href="#">About</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="dropdown-toggle nav-item-iconic" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span title="Username" class="fa pficon-user"></span>
+            <span class="caret"></span>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+            <li><a href="#">Preferences</a></li>
+            <li><a href="#">Logout</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </nav> <!--/.navbar-->
+<div class="wrap">
+  
+  <!-- <nav class="nav-pf-vertical-alt"> -->
+  <nav generic>
+    <ul class="list-group">
+      <li class="list-group-item active">
+        <a href="#">
+          <span class="fa fa-dashboard" title="Dashboard" data-toggle="tooltip" data-placement="right"></span>
+          <span class="list-group-item-value">Dashboard</span>
+        </a>
+      </li>
+      <li class="list-group-item">
+        <a href="#">
+          <span class="fa fa-file-o" title="My Services" data-toggle="tooltip" data-placement="right"></span>
+          <span class="list-group-item-value">My Services</span>
+          <span class="badge">12</span>
+        </a>
+      </li>
+      <li class="list-group-item">
+        <a href="#">
+          <span class="fa fa-file-text-o" title="My Requests" data-toggle="tooltip" data-placement="right"></span>
+          <span class="list-group-item-value">My Requests</span>
+          <span class="badge">2</span>
+        </a>
+      </li>
+      <li class="list-group-item">
+        <a href="#">
+          <span class="fa fa-copy" title="My Items" data-toggle="tooltip" data-placement="right"></span>
+          <span class="list-group-item-value">My Items</span>
+        </a>
+      </li>
+      <li class="list-group-item list-group-item-separator hidden-sm hidden-md hidden-lg">
+        <a href="#">
+          <span class="fa fa-external-link" title="Launch"></span>
+          <span class="list-group-item-value">Launch</span>
+        </a>
+      </li>
+      <li class="list-group-item hidden-sm hidden-md hidden-lg">
+        <a href="#">
+          <span class="pficon pficon-flag" title="Notifications"></span>
+          <span class="list-group-item-value">Notifications</span>
+          <span class="badge notifications">2</span>
+        </a>
+      </li>
+      <li class="list-group-item hidden-sm hidden-md hidden-lg">
+        <a href="#">
+          <span class="pficon pficon-help" title="Help"></span>
+          <span class="list-group-item-value">Help</span>
+        </a>
+      </li>
+       <li class="list-group-item hidden-sm hidden-md hidden-lg">
+        <a href="#">
+          <span class="fa fa-info-circle" title="About"></span>
+          <span class="list-group-item-value">About</span>
+        </a>
+      </li>
+      <li class="list-group-item hidden-sm hidden-md hidden-lg">
+        <a href="#">
+          <span class="pficon pficon-user" title="Preferences"></span>
+          <span class="list-group-item-value">Preferences</span>
+        </a>
+      </li>
+      <li class="list-group-item hidden-sm hidden-md hidden-lg">
+        <a href="#">
+          <span class="fa fa-sign-out" title="Log Out"></span>
+          <span class="list-group-item-value">Log Out</span>
+        </a>
+      </li>
+    </ul>
+  </nav> <!-- /nav-pf-vertical-alt -->
+  <div class="container-main">
+    <!-- <div class="container-fluid container-cards-pf container-pf-alt-nav-pf-vertical-alt">
+      <div class="row">
+        <div class="col-md-12"> -->
+          <div height><h1>container-main</h1></div>
+    <!--     </div>
+      </div>
+    </div> -->
+  </div> <!-- /container-main -->
+  <div class="sidebar-right-os">
+    <p>Nam euismod tellus scelerisque diam lacinia tincidunt. Suspendisse cursus magna non magna rutrum pharetra. Cras vel nibh neque. Aliquam ullamcorper dui eget gravida fringilla. Aenean orci erat, elementum sed dui id, sagittis pellentesque turpis. Proin sit amet mattis augue. Duis eget dui at ipsum efficitur faucibus eu sed sapien. Donec odio quam, fermentum ac ultrices at, tristique non ipsum. Phasellus rutrum, augue sit amet suscipit vestibulum, nulla nunc placerat mauris, molestie mollis turpis odio at orci. Nulla et leo eget metus cursus lacinia eu vitae quam. Pellentesque sit amet velit turpis. Donec maximus ex tempor justo euismod, vitae porta augue consequat.
+    </p>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent eget venenatis ex. Mauris et metus urna. Nam non vehicula sapien. Cras erat velit, pulvinar semper mattis in, vehicula id metus. Cras euismod massa vitae ullamcorper vehicula. Sed vel faucibus ante. Phasellus aliquet pellentesque condimentum. Suspendisse vitae viverra tortor.</p>
+
+    <p>
+    Etiam nisl urna, sollicitudin nec diam eu, iaculis egestas justo. Proin interdum sodales mi, eu finibus diam scelerisque at. Sed risus justo, suscipit vitae porta ut, faucibus ac enim. Maecenas turpis enim, ultricies et felis in, gravida tempor nibh. Nam et bibendum est. Nam fringilla suscipit elit, vitae pretium dolor bibendum eget. Etiam dapibus faucibus risus, et posuere quam. Nullam et ultrices neque.
+    </p>
+  </div>
+  
+</div> <!-- /wrap -->
+
+
+  </body>
+</html>

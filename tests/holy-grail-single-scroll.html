@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html class="layout-pf-alt layout-pf-alt-fixed layout-pf-alt-fixed-inner-scroll">
+<head>
+<link href="../dist/css/patternfly.min.css" rel="stylesheet" media="screen, print">
+<link href="../dist/css/patternfly-additions.min.css" rel="stylesheet" media="screen, print">
+<script src="../components/jquery/dist/jquery.min.js"></script>
+<script src="../components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="../components/matchHeight/jquery.matchHeight-min.js"></script>
+<script src="../components/c3/c3.min.js"></script>
+<script src="../components/d3/d3.min.js"></script>
+<script src="../dist/js/patternfly.min.js"></script>
+<style type="text/css">
+html {
+  margin:0;
+}
+body * {
+  border: 1px solid;
+}
+* {
+  box-sizing-border-box;
+}
+ul li, p {
+  margin: 0 30px; 
+  padding: 30px 0;
+  border:none;
+}
+.flex-wrap {
+  display: flex;
+  display: -ms-flexbox;
+  height: 100%;
+  flex-direction:column;
+  -ms-flex-direction: column;
+  margin: 0;
+  /*overflow-y: hidden; remove scroll */
+}
+  .position-absolute-0 {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0; 
+    right: 0;
+  }
+  .main {
+      margin: 1px; /* so can see boundary */
+    display: flex;
+    display: -ms-flexbox;
+    flex:1 0 auto;
+    -ms-flex: 1 0 auto;
+    flex-direction:row;
+    -ms-flex-direction: row;
+    border-color: red;
+    padding: 1.5em;
+    position: relative;
+  }
+  .article {
+    flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    padding: 0 2em;
+    margin: 0;
+    border-color: skyblue;
+  }
+  .sidebar-left {
+    flex: 0 0 250px; /* width of .nav-pf-vertical-alt */
+    -ms-flex: 0 0 250px;
+    position: relative;
+  }
+    .layout-pf-alt-fixed .nav-pf-vertical-alt {
+      /* overrides */
+      position: absolute;
+      top: 0;
+      z-index: 1000;
+    }
+  .aside {
+    flex: 0 0 400px;
+    -ms-flex: 0 0 400px;
+  }
+
+</style> 
+
+</head>
+<body>
+<div class="flex-wrap">
+  <nav class="navbar navbar-pf-alt">
+  navbar-pf-alt
+  </nav>
+    
+    <div class="main">
+      <div class="sidebar-left">
+        <nav class="nav-pf-vertical-alt">
+          <ul>
+            <li>foobarbaz</li>
+            <li>foobarbaz</li>
+            <li>foobarbaz</li>
+            <li>foobarbaz</li>
+            <li>foobarbaz</li>
+            <li>foobarbaz</li>
+            <li>foobarbaz</li>
+            <li>foobarbaz</li>
+            <li>foobarbaz</li>
+            <li>foobarbaz</li>
+          </ul>
+        </nav>
+      </div>
+      <div class="article">
+        <div class="container-fluid"> <!-- removed container-pf-alt-nav-pf-vertical-alt -->
+          <div class="row">
+              Middle ---
+              <p>Nam euismod tellus scelerisque diam lacinia tincidunt. Suspendisse cursus magna non magna rutrum pharetra. Cras vel nibh neque. Aliquam ullamcorper dui eget gravida fringilla. Aenean orci erat, elementum sed dui id, sagittis pellentesque turpis. Proin sit amet mattis augue. Duis eget dui at ipsum efficitur faucibus eu sed sapien. Donec odio quam, fermentum ac ultrices at, tristique non ipsum. Phasellus rutrum, augue sit amet suscipit vestibulum, nulla nunc placerat mauris, molestie mollis turpis odio at orci. Nulla et leo eget metus cursus lacinia eu vitae quam. Pellentesque sit amet velit turpis. Donec maximus ex tempor justo euismod, vitae porta augue consequat.
+              </p>
+              <p>Nam euismod tellus scelerisque diam lacinia tincidunt. Suspendisse cursus magna non magna rutrum pharetra. Cras vel nibh neque. Aliquam ullamcorper dui eget gravida fringilla. Aenean orci erat, elementum sed dui id, sagittis pellentesque turpis. Proin sit amet mattis augue. Duis eget dui at ipsum efficitur faucibus eu sed sapien. Donec odio quam, fermentum ac ultrices at, tristique non ipsum. Phasellus rutrum, augue sit amet suscipit vestibulum, nulla nunc placerat mauris, molestie mollis turpis odio at orci. Nulla et leo eget metus cursus lacinia eu vitae quam. Pellentesque sit amet velit turpis. Donec maximus ex tempor justo euismod, vitae porta augue consequat.
+              </p>
+              <p>Nam euismod tellus scelerisque diam lacinia tincidunt. Suspendisse cursus magna non magna rutrum pharetra. Cras vel nibh neque. Aliquam ullamcorper dui eget gravida fringilla. Aenean orci erat, elementum sed dui id, sagittis pellentesque turpis. Proin sit amet mattis augue. Duis eget dui at ipsum efficitur faucibus eu sed sapien. Donec odio quam, fermentum ac ultrices at, tristique non ipsum. Phasellus rutrum, augue sit amet suscipit vestibulum, nulla nunc placerat mauris, molestie mollis turpis odio at orci. Nulla et leo eget metus cursus lacinia eu vitae quam. Pellentesque sit amet velit turpis. Donec maximus ex tempor justo euismod, vitae porta augue consequat.
+              </p>
+              <p>Nam euismod tellus scelerisque diam lacinia tincidunt. Suspendisse cursus magna non magna rutrum pharetra. Cras vel nibh neque. Aliquam ullamcorper dui eget gravida fringilla. Aenean orci erat, elementum sed dui id, sagittis pellentesque turpis. Proin sit amet mattis augue. Duis eget dui at ipsum efficitur faucibus eu sed sapien. Donec odio quam, fermentum ac ultrices at, tristique non ipsum. Phasellus rutrum, augue sit amet suscipit vestibulum, nulla nunc placerat mauris, molestie mollis turpis odio at orci. Nulla et leo eget metus cursus lacinia eu vitae quam. Pellentesque sit amet velit turpis. Donec maximus ex tempor justo euismod, vitae porta augue consequat.
+              </p>
+          </div> <!--  /row -->
+        </div>
+      </div>
+      <div class="aside">
+        Right ---
+        <p>Nam euismod tellus scelerisque diam lacinia tincidunt. Suspendisse cursus magna non magna rutrum pharetra. Cras vel nibh neque. Aliquam ullamcorper dui eget gravida fringilla. Aenean orci erat, elementum sed dui id, sagittis pellentesque turpis. Proin sit amet mattis augue. Duis eget dui at ipsum efficitur faucibus eu sed sapien. Donec odio quam, fermentum ac ultrices at, tristique non ipsum. Phasellus rutrum, augue sit amet suscipit vestibulum, nulla nunc placerat mauris, molestie mollis turpis odio at orci. Nulla et leo eget metus cursus lacinia eu vitae quam. Pellentesque sit amet velit turpis. Donec maximus ex tempor justo euismod, vitae porta augue consequat.
+        </p>
+        <p>Nam euismod tellus scelerisque diam lacinia tincidunt. Suspendisse cursus magna non magna rutrum pharetra. Cras vel nibh neque. Aliquam ullamcorper dui eget gravida fringilla. Aenean orci erat, elementum sed dui id, sagittis pellentesque turpis. Proin sit amet mattis augue. Duis eget dui at ipsum efficitur faucibus eu sed sapien. Donec odio quam, fermentum ac ultrices at, tristique non ipsum. Phasellus rutrum, augue sit amet suscipit vestibulum, nulla nunc placerat mauris, molestie mollis turpis odio at orci. Nulla et leo eget metus cursus lacinia eu vitae quam. Pellentesque sit amet velit turpis. Donec maximus ex tempor justo euismod, vitae porta augue consequat.
+        </p>
+        <p>Nam euismod tellus scelerisque diam lacinia tincidunt. Suspendisse cursus magna non magna rutrum pharetra. Cras vel nibh neque. Aliquam ullamcorper dui eget gravida fringilla. Aenean orci erat, elementum sed dui id, sagittis pellentesque turpis. Proin sit amet mattis augue. Duis eget dui at ipsum efficitur faucibus eu sed sapien. Donec odio quam, fermentum ac ultrices at, tristique non ipsum. Phasellus rutrum, augue sit amet suscipit vestibulum, nulla nunc placerat mauris, molestie mollis turpis odio at orci. Nulla et leo eget metus cursus lacinia eu vitae quam. Pellentesque sit amet velit turpis. Donec maximus ex tempor justo euismod, vitae porta augue consequat.
+        </p>
+      </div>
+    </div> <!--  /main  -->
+</div> <!--  /flex-wrap  -->
+
+</body>
+</html>

@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html class="layout-pf-alt layout-pf-alt-fixed">
+  <head>
+    <meta charset="utf-8">
+    <title>Independent CSS scrolling panels (with inertia)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="../dist/css/patternfly.min.css" rel="stylesheet" media="screen, print">
+    <link href="../dist/css/patternfly-additions.min.css" rel="stylesheet" media="screen, print">
+    <script src="../components/jquery/dist/jquery.min.js"></script>
+    <script src="../components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../dist/js/patternfly.min.js"></script>
+
+<style>
+*{-webkit-box-sizing:border-box;box-sizing:border-box;}
+body{overflow-x:hidden;}
+html,body{padding:0;margin:0;}
+p {
+    margin:100px 20px;
+    line-height: 50px;
+}
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+::-webkit-scrollbar {
+    height: 12px;
+    overflow: visible;
+    width: 12px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgba(0,0,0,.2);
+    background-clip: padding-box;
+    border: solid transparent;
+    border-width: 1px 1px 1px 1px;
+    min-height: 28px;
+    padding: 100px 0 0;
+    -webkit-box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+    box-shadow: inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07);
+}
+::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:active {
+    background-color: rgba(0,0,0,.4);
+}
+
+.Top{
+    display:-webkit-flex;
+    display:-ms-flexbox;
+    display:flex;
+    position:relative;
+    z-index:10;
+    height:60px; /* top offset height */
+}
+
+/* mobile first */
+.Container {
+    display: block;
+    overflow: visible;
+}
+.Left,.Middle,.Right {
+    display: block;
+    -webkit-flex: 0 0 auto; /* none */
+    -ms-flex: 0 0 auto; /* none */
+    flex: 0 0 auto; /* none */
+    width: 100%;
+}
+  .Middle {
+  }
+  .Right {
+    border-left: 1px solid #dadada;
+  }
+
+/* Patternfly overrides */
+.layout-pf-alt.layout-pf-alt-fixed body { padding-top:0;}
+.container-fluid {margin-left: 0 !important;}
+
+@media (min-width: 768px) {
+  .Container{
+      display:-webkit-flex;
+      display:-ms-flexbox;
+      display:flex;
+      overflow:hidden;
+      height:100vh;
+      margin-top:-60px; /* top offset height */
+      padding-top:60px; /* top offset height */
+      position:relative;
+      width:100%;
+      -webkit-backface-visibility:hidden;
+      backface-visibility:hidden;
+  }
+  .Left,.Middle,.Right{
+      overflow-y:auto;
+      height:auto;
+      -webkit-overflow-scrolling:touch;
+  }
+  .Left{
+      -webkit-flex:0 0 220px;
+      -ms-flex: 0 0 220px;
+      flex: 0 0 220px; /* mimic patternfly */
+  }
+    .layout-pf-alt-fixed .nav-pf-vertical-alt {
+      position: fixed;
+      bottom:0;
+      overflow-y:auto;
+      /* width: inherit; used if parent is using width: can't use 100% or auto */
+    }
+  .Middle{
+      -webkit-flex:1 1 0%;
+      -ms-flex:1 1 0%;
+      flex:1 1 0%;
+  }
+  .Right{
+      -webkit-flex:0 0 360px;
+      -ms-flex:0 0 360px;
+      flex: 0 0 360px;
+  }
+}
+
+@media (min-width: 768px) {
+  .layout-pf-alt-fixed .nav-pf-vertical-alt.collapsed {
+    width: 110px !important;
+  }
+  .navbar-header .navbar-toggle {
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .Left{
+    -webkit-flex:0 0 110px;
+    -ms-flex:0 0 110px;
+    flex: 0 0 110px;
+  }
+  .Right {
+    -webkit-flex:0 0 260px;
+    -ms-flex:0 0 260px;
+    flex: 0 0 260px;
+  }
+  .layout-pf-alt-fixed .nav-pf-vertical-alt.collapsed .list-group-item .list-group-item-value {
+      opacity: 1; /* keep text visible */
+  }
+  .nav-pf-vertical-alt .list-group-item a {
+      display: block;
+      height: initial;
+      padding: 20px 5px;
+      white-space: nowrap;
+      text-align: center;
+  }
+  .nav-pf-vertical-alt .list-group-item .fa, .nav-pf-vertical-alt .list-group-item .glyphicon, .nav-pf-vertical-alt .list-group-item .pficon {
+      float: none;
+      font-size: 18px;
+      line-height: 30px;
+      margin-right: 0;
+      text-align: center;
+      width: 18px;
+  }
+  .nav-pf-vertical-alt .list-group-item .list-group-item-value {
+      display: block;
+      opacity: 1;
+      width: auto;
+  }
+}
+
+@media (min-width: 1025px) {
+  .layout-pf-alt-fixed .nav-pf-vertical-alt {
+    width: 220px!important;
+  }
+}
+
+/* apply transitions to right column */
+.layout-pf-alt-fixed.transitions .nav-pf-vertical-alt, .layout-pf-alt.layout-pf-alt-fixed.transitions .Left, .layout-pf-alt.layout-pf-alt-fixed.transitions .Right {
+    transition: all .2s cubic-bezier(.35,0,.25,1);
+}
+
+</style>
+    </head>
+    <body>
+
+<!--
+// Example based on
+// http://benfrain.com/independent-scrolling-panels-body-scroll-using-just-css/
+// -->
+
+    <div class="Top">
+      <nav class="navbar navbar-pf-alt">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- <a href="/" class="navbar-brand">
+            <img class="navbar-brand-icon" src="../dist/img/logo-alt.svg" alt=""/><img class="navbar-brand-name" src="../dist/img/brand-alt.svg" alt="PatternFly Enterprise Application" />
+          </a> -->
+        </div>
+        <nav class="collapse navbar-collapse">
+          <ul class="nav navbar-nav navbar-right navbar-iconic">
+            <li class="dropdown">
+              <a class="dropdown-toggle nav-item-iconic" id="notifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span title="Notifications" class="fa pficon-flag"></span>
+                <span class="badge">2</span>
+              </a>
+              <div class="dropdown-menu infotip bottom-right">
+                <div class="arrow"></div>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="i pficon pficon-info"></span> Modified Datasources ExampleDS
+                  </li>
+                  <li class="list-group-item">
+                    <span class="i pficon pficon-info"></span> Error: System Failure
+                  </li>
+                </ul>
+                <div class="footer">
+                  <a>Clear Messages</a>
+                </div>
+              </div>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle nav-item-iconic" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span title="Help" class="fa pficon-help"></span>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                <li><a href="#">Help</a></li>
+                <li><a href="#">About</a></li>
+              </ul>
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle nav-item-iconic" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                <span title="Username" class="fa pficon-user"></span>
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <li><a href="#">Preferences</a></li>
+                <li><a href="#">Logout</a></li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+      </nav> <!--/.navbar-->
+    </div> <!--  /Top  -->
+    <div class="Container">
+        <div class="Left">
+          <nav class="nav-pf-vertical-alt">
+            <ul class="list-group">
+              <li class="list-group-item active">
+                <a href="#">
+                  <span class="fa fa-dashboard" title="Dashboard" data-toggle="tooltip" data-placement="right"></span>
+                  <span class="list-group-item-value">Dashboard</span>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="#">
+                  <span class="fa fa-file-o" title="My Services" data-toggle="tooltip" data-placement="right"></span>
+                  <span class="list-group-item-value">My Services</span>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="#">
+                  <span class="fa fa-file-text-o" title="My Requests" data-toggle="tooltip" data-placement="right"></span>
+                  <span class="list-group-item-value">My Requests</span>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="#">
+                  <span class="fa fa-copy" title="My Items" data-toggle="tooltip" data-placement="right"></span>
+                  <span class="list-group-item-value">My Items</span>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="#">
+                  <span class="fa fa-copy" title="My Items" data-toggle="tooltip" data-placement="right"></span>
+                  <span class="list-group-item-value">My Items</span>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="#">
+                  <span class="fa fa-copy" title="My Items" data-toggle="tooltip" data-placement="right"></span>
+                  <span class="list-group-item-value">My Items</span>
+                </a>
+              </li>
+              <li class="list-group-item list-group-item-separator hidden-sm hidden-md hidden-lg">
+                <a href="#">
+                  <span class="fa fa-external-link" title="Launch"></span>
+                  <span class="list-group-item-value">Launch</span>
+                </a>
+              </li>
+              <li class="list-group-item hidden-sm hidden-md hidden-lg">
+                <a href="#">
+                  <span class="pficon pficon-flag" title="Notifications"></span>
+                  <span class="list-group-item-value">Notifications</span>
+                  <span class="badge notifications">2</span>
+                </a>
+              </li>
+              <li class="list-group-item hidden-sm hidden-md hidden-lg">
+                <a href="#">
+                  <span class="pficon pficon-help" title="Help"></span>
+                  <span class="list-group-item-value">Help</span>
+                </a>
+              </li>
+               <li class="list-group-item hidden-sm hidden-md hidden-lg">
+                <a href="#">
+                  <span class="fa fa-info-circle" title="About"></span>
+                  <span class="list-group-item-value">About</span>
+                </a>
+              </li>
+              <li class="list-group-item hidden-sm hidden-md hidden-lg">
+                <a href="#">
+                  <span class="pficon pficon-user" title="Preferences"></span>
+                  <span class="list-group-item-value">Preferences</span>
+                </a>
+              </li>
+              <li class="list-group-item hidden-sm hidden-md hidden-lg">
+                <a href="#">
+                  <span class="fa fa-sign-out" title="Log Out"></span>
+                  <span class="list-group-item-value">Log Out</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+
+        <div class="Middle">
+          <div class="container-fluid container-pf-alt-nav-pf-vertical-alt">
+            <p>Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content</p>
+            <p>Middle Content</p>
+            <p>Middle Content</p>
+          </div>
+        </div>
+        <div class="Right">
+            <p>Right Content Right Content Right Content</p>
+            <p>Right Content</p>
+            <p>Right Content</p>
+        </div>
+    </div>
+    </body>
+</html>
