@@ -65,6 +65,8 @@ p {
     flex: 0 0 auto; /* none */
     width: 100%;
 }
+  .Middle {
+  }
   .Right {
     border-left: 1px solid #dadada;
   }
@@ -87,7 +89,7 @@ p {
       -webkit-backface-visibility:hidden;
       backface-visibility:hidden;
   }
-  .Left,.Right{
+  .Left,.Middle,.Right{
       overflow-y:auto;
       height:auto;
       -webkit-overflow-scrolling:touch;
@@ -103,86 +105,16 @@ p {
       overflow-y:auto;
       /* width: inherit; used if parent is using width: can't use 100% or auto */
     }
-.content-wrap {
-  flex: 1 1 auto;
-  position: relative;
-  height: 100%;
-  width: 100%;
-}
-  .content {
-    position: absolute;
-    height: 100%;
-    width: 100%;
+  .Middle{
+      -webkit-flex:1 1 0%;
+      -ms-flex:1 1 0%;
+      flex:1 1 0%;
   }
-    .middle-wrap {
-      display: flex;
-      flex-direction: column;
-      height: 100%;
-      width: 100%;
-    }
-      .middle {
-        flex: 1 1 auto;
-        position: relative;
-      }
-        .middle-content {
-          display: flex;
-          flex-direction: column;
-        }
-          .middle-inner-content {
-            bottom: 0;
-            top: 0;
-            left: 0;
-            right: 0;
-            position: absolute;
-          }
-            .middle-top {
-              margin-right: 350px;
-            }
-            .middle-scrollable {
-              margin-right: 350px;
-              overflow-y: auto;
-              height: 100%;
-            }
-  .right-a {
-    position: absolute;
-    top: 0;
-    right: 0;
-    width: 350px;
-    height: 100%;
+  .Right{
+      -webkit-flex:0 0 360px;
+      -ms-flex:0 0 360px;
+      flex: 0 0 360px;
   }
-    .right-b {
-      height:100%;
-      width: 100%;
-    }
-      .right-c {
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-      }
-        .right-d1 {
-          flex: 0 0 auto;
-        }
-        .right-d2 {
-          flex: 1 1 auto;
-          position: relative;
-        }
-          .right-d2-a {
-            position: absolute;
-            height:100%;
-            width: 100%;
-          }
-            .right-d2-b {
-              height:100%;
-              width: 100%;
-            }
-              .right-d2-c {
-                overflow-x: hidden;
-                overflow-y: scroll;
-                position: relative;
-                height:100%;
-                width: 100%;
-              }
-
 }
 
 @media (min-width: 768px) {
@@ -327,55 +259,90 @@ p {
                   <span class="list-group-item-value">Dashboard</span>
                 </a>
               </li>
+              <li class="list-group-item">
+                <a href="#">
+                  <span class="fa fa-file-o" title="My Services" data-toggle="tooltip" data-placement="right"></span>
+                  <span class="list-group-item-value">My Services</span>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="#">
+                  <span class="fa fa-file-text-o" title="My Requests" data-toggle="tooltip" data-placement="right"></span>
+                  <span class="list-group-item-value">My Requests</span>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="#">
+                  <span class="fa fa-copy" title="My Items" data-toggle="tooltip" data-placement="right"></span>
+                  <span class="list-group-item-value">My Items</span>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="#">
+                  <span class="fa fa-copy" title="My Items" data-toggle="tooltip" data-placement="right"></span>
+                  <span class="list-group-item-value">My Items</span>
+                </a>
+              </li>
+              <li class="list-group-item">
+                <a href="#">
+                  <span class="fa fa-copy" title="My Items" data-toggle="tooltip" data-placement="right"></span>
+                  <span class="list-group-item-value">My Items</span>
+                </a>
+              </li>
+              <li class="list-group-item list-group-item-separator hidden-sm hidden-md hidden-lg">
+                <a href="#">
+                  <span class="fa fa-external-link" title="Launch"></span>
+                  <span class="list-group-item-value">Launch</span>
+                </a>
+              </li>
+              <li class="list-group-item hidden-sm hidden-md hidden-lg">
+                <a href="#">
+                  <span class="pficon pficon-flag" title="Notifications"></span>
+                  <span class="list-group-item-value">Notifications</span>
+                  <span class="badge notifications">2</span>
+                </a>
+              </li>
+              <li class="list-group-item hidden-sm hidden-md hidden-lg">
+                <a href="#">
+                  <span class="pficon pficon-help" title="Help"></span>
+                  <span class="list-group-item-value">Help</span>
+                </a>
+              </li>
+               <li class="list-group-item hidden-sm hidden-md hidden-lg">
+                <a href="#">
+                  <span class="fa fa-info-circle" title="About"></span>
+                  <span class="list-group-item-value">About</span>
+                </a>
+              </li>
+              <li class="list-group-item hidden-sm hidden-md hidden-lg">
+                <a href="#">
+                  <span class="pficon pficon-user" title="Preferences"></span>
+                  <span class="list-group-item-value">Preferences</span>
+                </a>
+              </li>
+              <li class="list-group-item hidden-sm hidden-md hidden-lg">
+                <a href="#">
+                  <span class="fa fa-sign-out" title="Log Out"></span>
+                  <span class="list-group-item-value">Log Out</span>
+                </a>
+              </li>
             </ul>
           </nav>
         </div>
 
-      <div class="content-wrap">
-        <div class="content">
-          <div class="middle-wrap">
-            <div class="middle">
-              <div class="middle-content">
-                <div class="middle-inner-content">
-                  <div class="middle-top">
-                    middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here middle top here
-                  </div>
-                  <div class="middle-scrollable">
-                    <div class="container-fluid">
-                      <p>Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content</p>
-                      <p>Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content</p>
-                      <p>Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content</p>
-                      <p>Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+        <div class="Middle">
+          <div class="container-fluid container-pf-alt-nav-pf-vertical-alt">
+            <p>Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content Middle Content</p>
+            <p>Middle Content</p>
+            <p>Middle Content</p>
           </div>
-          <div class="right-a">
-            <div class="right-b">
-              <div class="right-c">
-                <div class="right-d1">
-                  <p>right top right top right top right top right top right top right top right top right top right top</p>
-                </div>
-                <div class="right-d2">
-                  <div class="right-d2-a">
-                    <div class="right-d2-b">
-                      <div class="right-d2-c">
-                  <p>Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content</p>
-                  <p>Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content</p>
-                  <p>Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content Right Content</p>
-                      </div>
-                    </div>
-                  </div>
-                </div><!-- /right-d2 -->
-              </div>
-            </div>
-          </div><!-- /right-a -->
-        </div> <!-- /content -->
-      </div> <!-- /content-wrap -->
-
-    </div><!-- /Container -->
+        </div>
+        <div class="Right">
+            <p>Right Content Right Content Right Content</p>
+            <p>Right Content</p>
+            <p>Right Content</p>
+        </div>
+    </div>
 
 </div>
     </body>
