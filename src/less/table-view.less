@@ -168,3 +168,40 @@ table.dataTable {
 .table-view-pf-select-results {
   text-align: right;
 }
+
+
+
+// hsla color work
+@blue:    darken(hsla(202, 100%, 94%, .2), 30%);
+// @blue:   hsla(202, 100%, 94%, 1);
+@yellow:    darken(hsla(50, 81%, 94%, .2), 20%);
+// @yellow:   hsla(50, 81%, 94%, 1);
+@red:    darken(hsla(0, 43%, 91%, .2), 40%);
+// @red:    hsla(0, 43%, 91%, 1);
+@green:    darken(hsla(103, 44%, 89%, .2), 40%);
+// @green:    hsla(103, 44%, 89%, 1);
+
+.table>tbody>tr.green>td {
+  background-color: @green;
+}
+.table>tbody>tr.red>td {
+  background-color: @red;
+}
+.table>tbody>tr.yellow>td {
+  background-color: @yellow;
+}
+.table>tbody>tr.blue>td {
+  background-color: @blue;
+}
+
+.foo {
+  color: red;
+}
+
+.table-responsive {
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.2) 0%, #ffffff 100%) 0 center, linear-gradient(to right, rgba(255, 255, 255, 0) 0%, #ffffff 100%) 100% center, radial-gradient(ellipse at left, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) 0 center, radial-gradient(ellipse at right, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0) 75%) 100% center, #fff;
+  background-size: 50px 100%, 50px 100%, 10px 100%, 10px 100%;
+  background-attachment: local, local, scroll, scroll;
+  background-repeat: no-repeat;
+  margin-bottom: 10px;
+}
