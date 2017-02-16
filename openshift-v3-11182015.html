@@ -1,0 +1,925 @@
+<html class="no-js"><head><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+    <meta charset="utf-8">
+    <base href="/">
+    <title>OpenShift Web Console</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="images/apple-touch-icon-precomposed.png">
+    <meta name="application-name" content="OpenShift">
+    <meta name="msapplication-TileColor" content="#000000">
+    <meta name="msapplication-TileImage" content="images/mstile-144x144.png">
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/angular-patternfly/dist/styles/angular-patternfly.css">
+    <link rel="stylesheet" href="bower_components/messenger/build/css/messenger-theme-flat.css">
+    <link rel="stylesheet" href="bower_components/kubernetes-label-selector/labelFilter.css">
+    <link rel="stylesheet" href="bower_components/kubernetes-topology-graph/dist/topology-graph.css">
+    <link rel="stylesheet" href="bower_components/kubernetes-container-terminal/dist/container-terminal.css">
+    <link rel="stylesheet" href="bower_components/layout.attrs/dist/layout.attrs.css">
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <!-- endbuild -->
+    <link rel="stylesheet" type="text/css" href="styles/extensions.css">
+     <style type="text/css">
+
+
+    </style>
+  </head>
+<body class="console-os"><ul class="messenger-empty messenger messenger-fixed messenger-on-bottom messenger-on-right messenger-theme-flat"></ul>
+    <!-- Add your site or application content here -->
+    <nav class="navbar navbar-default navbar-pf" role="navigation">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle ng-isolate-scope" data-toggle="collapse" data-target=".navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" id="openshift-logo" href="./">
+          <div id="header-logo"></div>
+        </a>
+      </div>
+      <div class="collapse navbar-collapse navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-utility">
+          <li>
+            <a href="http://docs.openshift.org/latest/welcome/index.html">
+            <span class="fa fa-files-o fa-fw"></span> Documentation</a>
+          </li>
+          <!-- ngIf: user --><li ng-if="user" class="dropdown ng-scope">
+            <a href="#" class="dropdown-toggle ng-isolate-scope" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span class="pficon pficon-user"></span>
+              <span class="username ng-binding">test</span> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <!--
+              <li>
+                <a href="#">Account</a>
+              </li>
+              <li>
+                <a href="#">Settings</a>
+              </li>
+              <li class="divider"></li>
+              -->
+              <li>
+                <a href="logout">Log out</a>
+              </li>
+            </ul>
+          </li><!-- end ngIf: user -->
+        </ul>
+      </div>
+    </nav>
+
+    <!-- ngView:  --><div ng-view="" id="content-wrap" class="ng-scope"><div ng-controller="ProjectController" class="content ng-scope">
+  <project-page class="project-overview-page"><project-nav><div class="navbar-project container-fluid">
+  <div class="row">
+    <div row="" class="col-sm-4">
+      <div flex="" class="form-group">
+        <label class="control-label hidden-xs" for="boostrapSelect">Projects</label>
+        <!-- TODO add multiple attribute back to the select tag when we support selecting multiple -->
+        <!-- Use title="" to prevent "Nothing selected" from briefly flashing while the projects are still loading. -->
+        <select class="selectpicker form-control bs-select-hidden" data-selected-text-format="count>3" id="boostrapSelect" title=""><option value="example" selected="selected">example</option><option data-divider="true"></option><option value="">View all projects</option></select><div class="btn-group bootstrap-select form-control"><button type="button" class="btn dropdown-toggle btn-default" data-toggle="dropdown" data-id="boostrapSelect" title="example"><span class="filter-option pull-left">example</span>&nbsp;<span class="caret"></span></button><div class="dropdown-menu open"><ul class="dropdown-menu inner" role="menu"><li data-original-index="0" class="selected"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">example</span><span class="fa fa-check check-mark"></span></a></li><li class="divider" data-original-index="1"></li><li data-original-index="2"><a tabindex="0" class="" style="" data-tokens="null"><span class="text">View all projects</span><span class="fa fa-check check-mark"></span></a></li></ul></div></div>
+      </div>
+      <!-- Filter and create buttons show at mobile -->
+      <div class="project-actions visible-xs-inline-block">
+        <!-- ngIf: !renderOptions || !renderOptions.hideFilterWidget --><a class="btn-flat-default ng-scope ng-isolate-scope" href="javascript:;" role="button" data-toggle="collapse" data-target=".navbar-collapse-3" aria-expanded="false" title="Filter by labels" aria-pressed="false" ng-if="!renderOptions || !renderOptions.hideFilterWidget">
+          <i class="fa fa-filter"></i>
+        </a><!-- end ngIf: !renderOptions || !renderOptions.hideFilterWidget -->
+        <a class="btn-flat-default" href="project/example/create" ng-disabled="project.status.phase != 'Active'" title="Add to project">
+          <i class="fa fa-plus"></i>
+        </a>
+      </div>
+    </div>
+    <div class="col-sm-5 filter navbar-collapse-3 navbar-filter-widget-collapse">
+      <div class="form-group">
+        <!-- ngIf: !renderOptions || !renderOptions.hideFilterWidget --><label ng-if="!renderOptions || !renderOptions.hideFilterWidget" class="control-label hidden-xs ng-scope">Filter by labels</label><!-- end ngIf: !renderOptions || !renderOptions.hideFilterWidget -->
+        <div class="navbar-filter-widget"><div class="label-filter"><select class="label-filter-key selectized" placeholder="Label key " tabindex="-1" style="display: none;"><option value="" selected="selected"></option></select><div class="selectize-control label-filter-key single"><div class="selectize-input items not-full"><input type="text" autocomplete="off" tabindex="" placeholder="Label key " style="width: 73px;"></div><div class="selectize-dropdown single label-filter-key" style="display: none; width: 230px; top: 32px; left: 0px;"><div class="selectize-dropdown-content"><div data-value="template" data-selectable="" class="option active">template</div></div></div></div><select class="label-filter-operator selectized" placeholder="matching(...)" tabindex="-1" style="display: none;"><option value="" selected="selected"></option></select><div class="selectize-control label-filter-operator single" style="display: none;"><div class="selectize-input items not-full has-options"><input type="text" autocomplete="off" tabindex="" placeholder="matching(...)" style="width: 90px;"></div><div class="selectize-dropdown single label-filter-operator" style="display: none; width: 112px; top: 32px; left: 0px;"><div class="selectize-dropdown-content"></div></div></div><select class="label-filter-values selectized" placeholder="Value(s)" multiple="multiple" tabindex="-1" style="display: none;"></select><div class="selectize-control label-filter-values multi plugin-remove_button loading" style="display: none;"><div class="selectize-input items not-full"><input type="text" autocomplete="off" tabindex="" placeholder="Value(s)" style="width: 59px;"></div><div class="selectize-dropdown multi label-filter-values plugin-remove_button" style="display: none; width: 81px; top: 32px; left: 0px;"><div class="selectize-dropdown-content"></div></div></div></div><button class="label-filter-add btn btn-default btn-lg disabled" disabled="disabled"><span>Add</span></button></div>
+      </div>
+      <div class="active-filters"><span class="label-filter-active" style="display: none;"><a class="label-filtering-remove-all label label-primary" href="javascript:;"><i class="fa fa-filter" style="padding-right: 5px;"></i><span>Clear filters</span></a></span><span class="label-filter-active-filters"></span></div>
+    </div>
+    <div class="col-sm-3 create-button-container hidden-xs">
+      <a href="project/example/create" ng-disabled="project.status.phase != 'Active'" class="btn btn-lg btn-primary">Add to Project</a>
+      <!-- ngIf: project.status.phase == 'Terminating' -->
+    </div>
+  </div>
+</div>
+</project-nav>
+<div class="wrap show-sidebar-right" ng-class="{'show-sidebar-right': renderOptions.showSidebarRight}">
+  <div class="sidebar-left">
+    <sidebar>  <nav class="navbar navbar-sidebar">
+    <div class="sidebar-header">
+      <button type="button" class="navbar-toggle btn-flat-default ng-isolate-scope" data-toggle="collapse" data-target=".navbar-collapse-2">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <h2 class="visible-xs ng-binding">Overview</h2>
+    </div>
+    <div class="navbar-collapse navbar-collapse-2 collapse">
+      <ul class="nav nav-sidenav" hawtio-main-nav=""><li ng-class="{ active: item.isSelected() }" class="active">
+  <a ng-href="project/example/overview?main-tab=openshiftConsole%2Foverview" ng-click="item.click($event);" ng-attr-data-toggle="{{item.tabs.length ? 'dropdown' : undefined}}" ng-attr-data-hover="{{item.tabs.length ? 'dropdown' : undefined}}" ng-class="{'dropdown-toggle': item.tabs.length}" class="ng-binding ng-isolate-scope" href="project/example/overview?main-tab=openshiftConsole%2Foverview">
+    <span class="fa fa-dashboard fa-fw"></span> Overview
+  </a>
+  <!-- ngIf: item.tabs.length -->
+  <!-- ngIf: item.tabs.length -->
+</li><li ng-class="{ active: item.isSelected() }" class="">
+  <a ng-href="project/example/browse?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-builds" ng-click="item.click($event);" ng-attr-data-toggle="{{item.tabs.length ? 'dropdown' : undefined}}" ng-attr-data-hover="{{item.tabs.length ? 'dropdown' : undefined}}" ng-class="{'dropdown-toggle': item.tabs.length}" class="ng-binding ng-isolate-scope dropdown-toggle" href="project/example/browse?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-builds" data-toggle="dropdown" data-hover="dropdown" aria-expanded="false">
+    <span class="fa fa-sitemap fa-fw"></span> Browse
+  </a>
+  <!-- ngIf: item.tabs.length --><div ng-if="item.tabs.length" class="hover-nav dropdown-menu hidden-xs ng-scope">
+    <ul class="nav nav-sidenav-secondary ng-isolate-scope" osc-secondary-nav="" tabs="item.tabs"><!-- ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/builds?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-builds" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/builds?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-builds">Builds</a>
+</li><!-- end ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/deployments?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-deployments" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/deployments?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-deployments">Deployments</a>
+</li><!-- end ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/events?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-events" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/events?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-events">Events</a>
+</li><!-- end ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/images?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-images" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/images?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-images">Image Streams</a>
+</li><!-- end ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/pods?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-pods" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/pods?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-pods">Pods</a>
+</li><!-- end ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/routes?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-routes" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/routes?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-routes">Routes</a>
+</li><!-- end ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/services?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-services" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/services?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-services">Services</a>
+</li><!-- end ngRepeat: tab in tabs --></ul>
+  </div><!-- end ngIf: item.tabs.length -->
+  <!-- ngIf: item.tabs.length --><div ng-if="item.tabs.length" class="hover-nav visible-xs-block ng-scope">
+    <ul class="nav nav-sidenav-secondary ng-isolate-scope" osc-secondary-nav="" tabs="item.tabs"><!-- ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/builds?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-builds" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/builds?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-builds">Builds</a>
+</li><!-- end ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/deployments?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-deployments" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/deployments?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-deployments">Deployments</a>
+</li><!-- end ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/events?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-events" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/events?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-events">Events</a>
+</li><!-- end ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/images?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-images" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/images?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-images">Image Streams</a>
+</li><!-- end ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/pods?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-pods" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/pods?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-pods">Pods</a>
+</li><!-- end ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/routes?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-routes" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/routes?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-routes">Routes</a>
+</li><!-- end ngRepeat: tab in tabs --><li ng-repeat="tab in tabs" ng-class="{ active: tab.isSelected() }" class="ng-scope">
+  <a ng-href="project/example/browse/services?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-services" ng-click="tab.click($event);" class="ng-binding" href="project/example/browse/services?main-tab=openshiftConsole%2Fbrowse&amp;sub-tab=openshiftConsole%2Fbrowse-services">Services</a>
+</li><!-- end ngRepeat: tab in tabs --></ul>
+  </div><!-- end ngIf: item.tabs.length -->
+</li><li ng-class="{ active: item.isSelected() }">
+  <a ng-href="project/example/settings?main-tab=openshiftConsole%2Fsettings" ng-click="item.click($event);" ng-attr-data-toggle="{{item.tabs.length ? 'dropdown' : undefined}}" ng-attr-data-hover="{{item.tabs.length ? 'dropdown' : undefined}}" ng-class="{'dropdown-toggle': item.tabs.length}" class="ng-binding ng-isolate-scope" href="project/example/settings?main-tab=openshiftConsole%2Fsettings">
+    <span class="fa fa-sliders fa-fw"></span> Settings
+  </a>
+  <!-- ngIf: item.tabs.length -->
+  <!-- ngIf: item.tabs.length -->
+</li></ul>
+    </div>
+  </nav></sidebar>
+  </div>
+  <div class="container-main">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12" ng-transclude="">
+    <div ng-controller="OverviewController" class="ng-scope">
+      <tasks><div ng-controller="TasksController" class="ng-scope">
+  <!-- ngRepeat: task in tasks() -->
+</div>
+</tasks>
+      <!-- ngIf: !renderOptions.showGetStarted --><div ng-if="!renderOptions.showGetStarted" class="actions pull-right ng-scope">
+        <div class="btn-group">
+          <label class="btn btn-default ng-pristine ng-untouched ng-valid active" ng-model="$parent.overviewMode" btn-radio="'tiles'" title="Tile View">
+            <i class="fa fa-th-list"></i>
+          </label>
+          <label class="btn btn-default ng-pristine ng-untouched ng-valid" ng-model="$parent.overviewMode" btn-radio="'topology'" title="Topology View">
+            <i class="fa fa-share-alt"></i>
+          </label>
+        </div>
+      </div><!-- end ngIf: !renderOptions.showGetStarted -->
+      <!-- ngIf: !renderOptions.showGetStarted --><div ng-if="!renderOptions.showGetStarted" class="page-header page-header-bleed-right ng-scope">
+        <h1 title="example" class="ng-binding">example</h1>
+      </div><!-- end ngIf: !renderOptions.showGetStarted -->
+
+      <!-- TODO handle things that don't live under services -->
+      <alerts alerts="alerts" class="ng-isolate-scope"><!-- ngRepeat: alert in alerts --></alerts>
+
+      <!-- Empty states -->
+      <!-- ngIf: (services | hashSize) == 0 -->
+
+      <!-- ngIf: overviewMode == 'topology' && !renderOptions.showGetStarted -->
+
+      <!-- ngIf: overviewMode == 'tiles' --><div ng-if="overviewMode == 'tiles'" class="ng-scope">
+
+        <!-- TODO handle multiple services mapping to the same deploymentConfig/deployment/pod -->
+        <!-- ngRepeat: (serviceId, service) in services --><section ng-repeat="(serviceId, service) in services" class="components components-group ng-scope" ng-attr-id="service-{{serviceId}}" id="service-database">
+
+          <div class="osc-object components-panel service ng-isolate-scope" ng-init="numPorts = service.spec.ports.length" kind="Service" resource="service">
+
+            <div class="component-block">
+              <div class="component">
+                <div ng-attr-title="{{service | serviceImplicitDNSName}}" class="component-label" title="database.example.svc">
+                  <!-- "service" class is present for e2e tests to check   -->
+                  Service <!-- ngIf: displayRouteByService[serviceId] -->
+                </div>
+
+                <!-- Show the route if present -->
+                <!-- ngIf: displayRouteByService[serviceId] -->
+
+                <!-- If no route is present, show the service name large -->
+                <!-- "service" class is present for e2e tests to check   -->
+                <!-- ngIf: !displayRouteByService[serviceId] --><h2 ng-if="!displayRouteByService[serviceId]" class="ng-scope">
+                  <a class="service ng-binding" href="project/example/browse/services/database">database</a>
+                </h2><!-- end ngIf: !displayRouteByService[serviceId] -->
+              </div>
+
+              <div class="component meta-data">
+                <!-- ngIf: numPorts --><div ng-if="numPorts" class="ng-scope">
+                  <!--
+                  Show only the first two ports if there are many since we don't have much space here.
+                  The full list is visible elsewhere.
+                  -->
+                  <!-- ngRepeat: portMapping in service.spec.ports | orderBy:'port' | limitTo:2 --><span ng-repeat="portMapping in service.spec.ports | orderBy:'port' | limitTo:2" class="nowrap ng-scope">
+                    <!-- Group port mappings and allow multiple mappings to stack if needed -->
+                    <span class="port-mappings ng-binding">
+                      5434/TCP&thinsp;→&thinsp;3306<!-- ngIf: $index < (numPorts - 1) --></span>
+                  </span><!-- end ngRepeat: portMapping in service.spec.ports | orderBy:'port' | limitTo:2 -->
+                  <!-- ngIf: numPorts > 2 -->
+                </div><!-- end ngIf: numPorts -->
+              </div>
+            </div>
+          </div>
+
+          <!--
+          Iterate over deploymentConfigs for this service.
+          Find ones that don't have any deployments for this service.
+          These are likely new, and could have incoming builds, which we want to surface.
+           -->
+          <!-- ngRepeat: (deploymentConfigId, deploymentConfig) in deploymentConfigsByService[serviceId] --><!-- ngIf: !deploymentsByServiceByDeploymentConfig[serviceId][deploymentConfigId] --><!-- end ngRepeat: (deploymentConfigId, deploymentConfig) in deploymentConfigsByService[serviceId] -->
+          <!--
+          Iterate over all deployments for this service grouped by deploymentConfig (or lack thereof)
+          -->
+          <!-- ngRepeat: (deploymentConfigId, deployments) in deploymentsByServiceByDeploymentConfig[serviceId] --><div ng-repeat="(deploymentConfigId, deployments) in deploymentsByServiceByDeploymentConfig[serviceId]" class="ng-scope">
+            <!--
+            deploymentConfig could be null:
+            1. when we have replicationControllers that were not generated from a deploymentConfig (deploymentConfigId=='')
+            2. when the deploymentConfig for these deployments no longer exists
+            3. when the deploymentConfig for these deployments no longer falls under this service
+            -->
+            <!-- ngIf: deploymentConfigsByService[serviceId][deploymentConfigId] --><div ng-if="deploymentConfigsByService[serviceId][deploymentConfigId]" class="ng-scope">
+              <!--
+              Pods in deployments created from this deployment config will be routed to by this service.
+              Show things related to triggers that are about to create stuff, like builds.
+              -->
+              <triggers triggers="deploymentConfigsByService[serviceId][deploymentConfigId].spec.triggers" builds-by-output-image="recentBuildsByOutputImage" namespace="projectName" class="ng-isolate-scope"><div class="builds-block">
+  <!-- ngRepeat: trigger in triggers --><div class="builds ng-scope" ng-repeat="trigger in triggers">
+    <!-- ngIf: trigger.type === 'ImageChange' -->
+  </div><!-- end ngRepeat: trigger in triggers -->
+</div>
+
+
+
+</triggers>
+            </div><!-- end ngIf: deploymentConfigsByService[serviceId][deploymentConfigId] -->
+
+            <!-- ngRepeat: deployment in deployments | orderObjectsByDate : true track by (deployment | uid) --><!-- ngIf: (podsByDeployment[deployment.metadata.name] | hashSize) > 0 || (deployment | isRecentDeployment : deploymentConfigs[deploymentConfigId]) || !(deployment | isDeployment) --><div ng-repeat="deployment in deployments | orderObjectsByDate : true track by (deployment | uid)" ng-if="(podsByDeployment[deployment.metadata.name] | hashSize) > 0 || (deployment | isRecentDeployment : deploymentConfigs[deploymentConfigId]) || !(deployment | isDeployment)" class="animate-repeat ng-scope">
+
+              <!-- Make sure deploymentConfigs are loaded before testing if the deployment config is missing. -->
+              <overview-deployment rc="deployment" deployment-config-id="deploymentConfigId" deployment-config-missing="deploymentConfigs &amp;&amp; !deploymentConfigs[deploymentConfigId]" deployment-config-different-service="deploymentConfigs[deploymentConfigId] &amp;&amp; !deploymentConfigsByService[serviceId][deploymentConfigId]" images-by-docker-reference="imagesByDockerReference" builds="builds" pods="podsByDeployment[deployment.metadata.name]" alerts="alerts" class="ng-isolate-scope"><!--
+  Expects the following variables. All must be defined in the overviewDeployment directive scope.
+
+  rc   - ReplicationController. Required. May or may not have deployment annotations.
+  pods - [Pod]. Required.
+
+  deploymentConfigId               - String. Optional. If present, indicates this replication controller came from a deployment.
+  deploymentConfigMissing          - Boolean. Optional.
+  deploymentConfigDifferentService - Boolean. Optional.
+
+  imagesByDockerReference - map[dockerReference][]Image. Optional.
+  builds                  - map[buildId]build. Optional.
+ -->
+<div class="osc-object components-panel deployment-block ng-isolate-scope" kind="ReplicationController" resource="rc" ng-init="isDeployment = (deploymentConfigId &amp;&amp; (rc | annotation:'deploymentConfig') &amp;&amp; (rc | annotation:'deploymentVersion'))">
+
+  <!--
+  Connector to the containing service block.
+  Hidden by CSS when in non-service blocks.
+  -->
+  <div class="connector">
+    <i class="fa fa-search"></i>
+  </div>
+
+  <!-- Header for deployments. Surface deployment config and trigger info. -->
+  <!-- ngIf: isDeployment --><div class="component-block component-meta ng-scope" ng-if="isDeployment">
+    <div class="component">
+      <div class="component-label">
+        <span>Deployment: </span>
+        <a class="subtle-link ng-binding" ng-href="project/example/browse/deployments/database" href="project/example/browse/deployments/database">database</a>, <a class="subtle-link ng-binding" ng-href="project/example/browse/deployments/database/database-1" href="project/example/browse/deployments/database/database-1">#1</a>
+        <!-- ngIf: deploymentConfigMissing -->
+        <!-- ngIf: deploymentConfigDifferentService -->
+
+        <!-- Show status if not deployed or complete -->
+        <!-- ngIf: rc | deploymentIsInProgress -->
+        <span ng-switch="rc | deploymentStatus" class="hide-ng-leave">
+          <!-- ngSwitchWhen: Cancelled -->
+          <!-- ngSwitchWhen: Failed -->
+        </span>
+      </div>
+    </div>
+
+    <div class="component meta-data">
+      <relative-timestamp timestamp="rc.metadata.creationTimestamp" class="ng-isolate-scope"><span data-timestamp="2015-11-18T16:39:08Z" data-drop-suffix="" class="timestamp ng-binding" title="11/18/15 11:39 AM">3 hours ago</span></relative-timestamp><!-- ngIf: rc.causes.length --><span ng-if="rc.causes.length" class="ng-scope"><span>
+          <!-- ngRepeat: cause in rc.causes --><span class="deployment-trigger ng-scope" ng-repeat="cause in rc.causes">
+            <span ng-switch="cause.type">
+              <!-- ngSwitchWhen: ImageChange -->
+              <!-- ngSwitchWhen: ConfigChange --><span ng-switch-when="ConfigChange" class="ng-scope">from config change</span><!-- end ngSwitchWhen: -->
+              <!-- ngSwitchDefault:  -->
+            </span>
+          </span><!-- end ngRepeat: cause in rc.causes -->
+        </span>
+      </span><!-- end ngIf: rc.causes.length -->
+    </div>
+  </div><!-- end ngIf: isDeployment -->
+
+  <!-- Header for replication controllers. Name and timestamp only. -->
+  <!-- ngIf: !isDeployment -->
+
+  <div row="" mobile="column" axis="center center" class="pod-block">
+    <!-- Pods donut chart and scaling controls -->
+    <div column="" class="overview-pods" axis="center center">
+      <div row="">
+        <!-- spacer -->
+        <div flex="" class="visible-xs-block"></div>
+
+        <div column="">
+          <pod-status-chart pods="pods" desired="getDesiredReplicas()" ng-click="viewPodsForDeployment(rc)" ng-class="{ clickable: (pods | hashSize) > 0 }" class="ng-isolate-scope clickable"><div ng-attr-id="{{chartId}}" class="pod-status-chart c3" id="pods-donut-chart-7" style="max-height: 150px; position: relative;"><svg width="150" height="150" style="overflow: hidden;"><defs><clipPath id="c3-1447877080951-clip"><rect width="150" height="146"></rect></clipPath><clipPath id="c3-1447877080951-clip-xaxis"><rect x="-31" y="-20" width="212" height="20"></rect></clipPath><clipPath id="c3-1447877080951-clip-yaxis"><rect x="-29" y="-4" width="20" height="170"></rect></clipPath><clipPath id="c3-1447877080951-clip-grid"><rect width="150" height="146"></rect></clipPath><clipPath id="c3-1447877080951-clip-subchart"><rect width="150"></rect></clipPath></defs><g transform="translate(0.5,4.5)"><text class="c3-text c3-empty" text-anchor="middle" dominant-baseline="middle" x="75" y="73" style="opacity: 0;"></text><rect class="c3-zoom-rect" width="150" height="146" style="opacity: 0;"></rect><g clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877080951-clip)" class="c3-regions" style="visibility: hidden;"></g><g clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877080951-clip-grid)" class="c3-grid" style="visibility: hidden;"><g class="c3-xgrid-focus"><line class="c3-xgrid-focus" x1="-10" x2="-10" y1="0" y2="146" style="visibility: hidden;"></line></g></g><g clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877080951-clip)" class="c3-chart"><g class="c3-event-rects c3-event-rects-single" style="fill-opacity: 0;"><rect class=" c3-event-rect c3-event-rect-0" x="0" y="0" width="150" height="146"></rect></g><g class="c3-chart-bars"><g class="c3-chart-bar c3-target c3-target-Running" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Running c3-bars c3-bars-Running" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-Not-Ready" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Not-Ready c3-bars c3-bars-Not-Ready" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-Warning" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Warning c3-bars c3-bars-Warning" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-Failed" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Failed c3-bars c3-bars-Failed" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-Pending" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Pending c3-bars c3-bars-Pending" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-Succeeded" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Succeeded c3-bars c3-bars-Succeeded" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-Unknown" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Unknown c3-bars c3-bars-Unknown" style="cursor: pointer;"></g></g></g><g class="c3-chart-lines"><g class="c3-chart-line c3-target c3-target-Running" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Running c3-lines c3-lines-Running"></g><g class=" c3-shapes c3-shapes-Running c3-areas c3-areas-Running"></g><g class=" c3-selected-circles c3-selected-circles-Running"></g><g class=" c3-shapes c3-shapes-Running c3-circles c3-circles-Running" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-Not-Ready" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Not-Ready c3-lines c3-lines-Not-Ready"></g><g class=" c3-shapes c3-shapes-Not-Ready c3-areas c3-areas-Not-Ready"></g><g class=" c3-selected-circles c3-selected-circles-Not-Ready"></g><g class=" c3-shapes c3-shapes-Not-Ready c3-circles c3-circles-Not-Ready" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-Warning" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Warning c3-lines c3-lines-Warning"></g><g class=" c3-shapes c3-shapes-Warning c3-areas c3-areas-Warning"></g><g class=" c3-selected-circles c3-selected-circles-Warning"></g><g class=" c3-shapes c3-shapes-Warning c3-circles c3-circles-Warning" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-Failed" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Failed c3-lines c3-lines-Failed"></g><g class=" c3-shapes c3-shapes-Failed c3-areas c3-areas-Failed"></g><g class=" c3-selected-circles c3-selected-circles-Failed"></g><g class=" c3-shapes c3-shapes-Failed c3-circles c3-circles-Failed" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-Pending" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Pending c3-lines c3-lines-Pending"></g><g class=" c3-shapes c3-shapes-Pending c3-areas c3-areas-Pending"></g><g class=" c3-selected-circles c3-selected-circles-Pending"></g><g class=" c3-shapes c3-shapes-Pending c3-circles c3-circles-Pending" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-Succeeded" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Succeeded c3-lines c3-lines-Succeeded"></g><g class=" c3-shapes c3-shapes-Succeeded c3-areas c3-areas-Succeeded"></g><g class=" c3-selected-circles c3-selected-circles-Succeeded"></g><g class=" c3-shapes c3-shapes-Succeeded c3-circles c3-circles-Succeeded" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-Unknown" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Unknown c3-lines c3-lines-Unknown"></g><g class=" c3-shapes c3-shapes-Unknown c3-areas c3-areas-Unknown"></g><g class=" c3-selected-circles c3-selected-circles-Unknown"></g><g class=" c3-shapes c3-shapes-Unknown c3-circles c3-circles-Unknown" style="cursor: pointer;"></g></g></g><g class="c3-chart-arcs" transform="translate(75,68)"><text class="c3-chart-arcs-title" style="text-anchor: middle; opacity: 1;"><tspan class="pod-count donut-title-big-pf" dy="0" x="0">1</tspan><tspan class="donut-title-small-pf" dy="20" x="0">pod</tspan></text><g class="c3-chart-arc c3-target c3-target-Running"><g class=" c3-shapes c3-shapes-Running c3-arcs c3-arcs-Running"><path class=" c3-shape c3-shape c3-arc c3-arc-Running" transform="scale(1,1)" style="fill: rgb(0, 185, 228); cursor: pointer; opacity: 1;" d="M0,64.6A64.6,64.6 0 1,1 0,-64.6A64.6,64.6 0 1,1 0,64.6M0,54.599999999999994A54.599999999999994,54.599999999999994 0 1,0 0,-54.599999999999994A54.599999999999994,54.599999999999994 0 1,0 0,54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(2.443476525998757e-15,39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-Not-Ready"><g class=" c3-shapes c3-shapes-Not-Ready c3-arcs c3-arcs-Not-Ready"><path class=" c3-shape c3-shape c3-arc c3-arc-Not-Ready" transform="scale(1,1)" style="fill: rgb(190, 237, 249); cursor: pointer; opacity: 1;" d="M-1.1866827483737851e-14,-64.6A64.6,64.6 0 0,1 -1.1866827483737851e-14,-64.6L-1.002985728501682e-14,-54.599999999999994A54.599999999999994,54.599999999999994 0 0,0 -1.002985728501682e-14,-54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(-7.33042957799627e-15,-39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-Warning"><g class=" c3-shapes c3-shapes-Warning c3-arcs c3-arcs-Warning"><path class=" c3-shape c3-shape c3-arc c3-arc-Warning" transform="scale(1,1)" style="fill: rgb(249, 214, 122); cursor: pointer; opacity: 1;" d="M-1.1866827483737851e-14,-64.6A64.6,64.6 0 0,1 -1.1866827483737851e-14,-64.6L-1.002985728501682e-14,-54.599999999999994A54.599999999999994,54.599999999999994 0 0,0 -1.002985728501682e-14,-54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(-7.33042957799627e-15,-39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-Failed"><g class=" c3-shapes c3-shapes-Failed c3-arcs c3-arcs-Failed"><path class=" c3-shape c3-shape c3-arc c3-arc-Failed" transform="scale(1,1)" style="fill: rgb(217, 83, 79); cursor: pointer; opacity: 1;" d="M-1.1866827483737851e-14,-64.6A64.6,64.6 0 0,1 -1.1866827483737851e-14,-64.6L-1.002985728501682e-14,-54.599999999999994A54.599999999999994,54.599999999999994 0 0,0 -1.002985728501682e-14,-54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(-7.33042957799627e-15,-39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-Pending"><g class=" c3-shapes c3-shapes-Pending c3-arcs c3-arcs-Pending"><path class=" c3-shape c3-shape c3-arc c3-arc-Pending" transform="scale(1,1)" style="fill: rgb(232, 232, 232); cursor: pointer; opacity: 1;" d="M-1.1866827483737851e-14,-64.6A64.6,64.6 0 0,1 -1.1866827483737851e-14,-64.6L-1.002985728501682e-14,-54.599999999999994A54.599999999999994,54.599999999999994 0 0,0 -1.002985728501682e-14,-54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(-7.33042957799627e-15,-39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-Succeeded"><g class=" c3-shapes c3-shapes-Succeeded c3-arcs c3-arcs-Succeeded"><path class=" c3-shape c3-shape c3-arc c3-arc-Succeeded" transform="scale(1,1)" style="fill: rgb(63, 156, 53); cursor: pointer; opacity: 1;" d="M-1.1866827483737851e-14,-64.6A64.6,64.6 0 0,1 -1.1866827483737851e-14,-64.6L-1.002985728501682e-14,-54.599999999999994A54.599999999999994,54.599999999999994 0 0,0 -1.002985728501682e-14,-54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(-7.33042957799627e-15,-39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-Unknown"><g class=" c3-shapes c3-shapes-Unknown c3-arcs c3-arcs-Unknown"><path class=" c3-shape c3-shape c3-arc c3-arc-Unknown" transform="scale(1,1)" style="fill: rgb(249, 214, 122); cursor: pointer; opacity: 1;" d="M-1.1866827483737851e-14,-64.6A64.6,64.6 0 0,1 -1.1866827483737851e-14,-64.6L-1.002985728501682e-14,-54.599999999999994A54.599999999999994,54.599999999999994 0 0,0 -1.002985728501682e-14,-54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(-7.33042957799627e-15,-39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g></g><g class="c3-chart-texts"><g class="c3-chart-text c3-target c3-target-Running" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Running"></g></g><g class="c3-chart-text c3-target c3-target-Not-Ready" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Not-Ready"></g></g><g class="c3-chart-text c3-target c3-target-Warning" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Warning"></g></g><g class="c3-chart-text c3-target c3-target-Failed" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Failed"></g></g><g class="c3-chart-text c3-target c3-target-Pending" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Pending"></g></g><g class="c3-chart-text c3-target c3-target-Succeeded" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Succeeded"></g></g><g class="c3-chart-text c3-target c3-target-Unknown" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Unknown"></g></g></g></g><g clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877080951-clip-grid)" class="c3-grid c3-grid-lines"><g class="c3-xgrid-lines"></g><g class="c3-ygrid-lines"></g></g><g class="c3-axis c3-axis-x" clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877080951-clip-xaxis)" transform="translate(0,146)" style="visibility: visible; opacity: 0;"><text class="c3-axis-x-label" transform="" x="150" dx="-0.5em" dy="-0.5em" style="text-anchor: end;"></text><g class="tick" transform="translate(75, 0)" style="opacity: 1;"><line y2="6" x1="0" x2="0"></line><text y="9" x="0" transform="" style="text-anchor: middle; display: block;"><tspan x="0" dy=".71em" dx="0">0</tspan></text></g><path class="domain" d="M0,6V0H150V6"></path></g><g class="c3-axis c3-axis-y" clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877080951-clip-yaxis)" transform="translate(0,0)" style="visibility: visible; opacity: 0;"><text class="c3-axis-y-label" transform="rotate(-90)" x="0" dx="-0.5em" dy="1.2em" style="text-anchor: end;"></text><g class="tick" transform="translate(0,146)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">-0.1</tspan></text></g><g class="tick" transform="translate(0,134)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0</tspan></text></g><g class="tick" transform="translate(0,122)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.1</tspan></text></g><g class="tick" transform="translate(0,110)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.2</tspan></text></g><g class="tick" transform="translate(0,98)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.3</tspan></text></g><g class="tick" transform="translate(0,86)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.4</tspan></text></g><g class="tick" transform="translate(0,74)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.5</tspan></text></g><g class="tick" transform="translate(0,62)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.6</tspan></text></g><g class="tick" transform="translate(0,50)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.7</tspan></text></g><g class="tick" transform="translate(0,38)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.8</tspan></text></g><g class="tick" transform="translate(0,26)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.9</tspan></text></g><g class="tick" transform="translate(0,14)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">1</tspan></text></g><g class="tick" transform="translate(0,1)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">1.1</tspan></text></g><path class="domain" d="M-6,1H0V146H-6"></path></g><g class="c3-axis c3-axis-y2" transform="translate(150,0)" style="visibility: hidden; opacity: 0;"><text class="c3-axis-y2-label" transform="rotate(-90)" x="0" dx="-0.5em" dy="-0.5em" style="text-anchor: end;"></text><g class="tick" transform="translate(0,146)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0</tspan></text></g><g class="tick" transform="translate(0,132)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.1</tspan></text></g><g class="tick" transform="translate(0,118)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.2</tspan></text></g><g class="tick" transform="translate(0,103)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.3</tspan></text></g><g class="tick" transform="translate(0,88)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.4</tspan></text></g><g class="tick" transform="translate(0,74)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.5</tspan></text></g><g class="tick" transform="translate(0,60)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.6</tspan></text></g><g class="tick" transform="translate(0,45)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.7</tspan></text></g><g class="tick" transform="translate(0,30)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.8</tspan></text></g><g class="tick" transform="translate(0,16)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.9</tspan></text></g><g class="tick" transform="translate(0,1)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">1</tspan></text></g><path class="domain" d="M6,1H0V146H6"></path></g></g><g transform="translate(0.5,150.5)" style="visibility: hidden;"><g clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877080951-clip-subchart)" class="c3-chart"><g class="c3-chart-bars"></g><g class="c3-chart-lines"></g></g><g clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877080951-clip)" class="c3-brush" style="pointer-events: all; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><rect class="background" x="0" width="150" style="visibility: hidden; cursor: crosshair;"></rect><rect class="extent" x="0" width="0" style="cursor: move;"></rect><g class="resize e" transform="translate(0,0)" style="cursor: ew-resize; display: none;"><rect x="-3" width="6" height="6" style="visibility: hidden;"></rect></g><g class="resize w" transform="translate(0,0)" style="cursor: ew-resize; display: none;"><rect x="-3" width="6" height="6" style="visibility: hidden;"></rect></g></g><g class="c3-axis-x" transform="translate(0,0)" clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877080951-clip-xaxis)" style="opacity: 0;"><g class="tick" transform="translate(75, 0)" style="opacity: 1;"><line y2="6" x1="0" x2="0"></line><text y="9" x="0" transform="" style="text-anchor: middle; display: block;"><tspan x="0" dy=".71em" dx="0">0</tspan></text></g><path class="domain" d="M0,6V0H150V6"></path></g></g><g transform="translate(0,150)" style="visibility: hidden;"></g></svg><div class="c3-tooltip-container" style="position: absolute; pointer-events: none; display: none;"></div></div>
+<!-- Include text values for screen readers -->
+<div class="sr-only">
+  Pod status:
+  <!-- ngRepeat: column in chartConfig.data.columns -->
+</div>
+</pod-status-chart>
+        </div>
+
+        <div column="" class="scaling-controls">
+          <!-- spacer -->
+          <div flex=""></div>
+          <div column="">
+            <div>
+              <a href="" ng-click="scaleUp()" title="Scale up">
+                <i class="fa fa-chevron-up"></i>
+                <span class="sr-only">Scale up</span>
+              </a>
+            </div>
+            <div>
+              <!-- Remove the title when disabled because the not-allowed styled cursor overlaps the tooltip on some browsers. -->
+              <a href="" ng-click="scaleDown()" ng-class="{ disabled: getDesiredReplicas() === 0 }" ng-attr-title="{{(getDesiredReplicas() === 0) ? undefined : 'Scale down'}}" title="Scale down">
+                <i class="fa fa-chevron-down"></i>
+                <span class="sr-only">Scale down</span>
+              </a>
+            </div>
+          </div>
+          <!-- spacer -->
+          <div flex=""></div>
+        </div>
+
+        <!-- spacer -->
+        <div flex="" class="visible-xs-block"></div>
+      </div>
+    </div>
+
+    <!-- Pod template -->
+    <div column="" grow="2" class="pod-template-column">
+      <!-- spacer -->
+      <div flex=""></div>
+      <pod-template pod-template="rc.spec.template" images-by-docker-reference="imagesByDockerReference" builds="builds" class="ng-isolate-scope"><!--
+  Expects the following variables:
+  podTemplate
+  imagesByDockerReference (optional)
+  builds (optional)
+ -->
+<div class="pod-template-container">
+  <!-- ngRepeat: container in podTemplate.spec.containers --><div class="pod-template-block ng-scope" ng-repeat="container in podTemplate.spec.containers">
+    <div class="pod-template">
+      <div class="component-label ng-binding">Container: ruby-helloworld-database</div>
+      <!-- ngIf: container.image --><div row="" ng-if="container.image" class="pod-template-image icon-row ng-scope">
+        <div>
+          <span class="pficon pficon-image" aria-hidden="true"></span>
+        </div>
+        <div flex="">
+          Image:
+          <!-- ngIf: !imagesByDockerReference[container.image] --><span ng-if="!imagesByDockerReference[container.image]" class="ng-binding ng-scope">openshift/mysql-55-centos7:latest</span><!-- end ngIf: !imagesByDockerReference[container.image] -->
+          <!-- ngIf: imagesByDockerReference[container.image] -->
+        </div>
+      </div><!-- end ngIf: container.image -->
+      <!-- ngIf: imagesByDockerReference && container.image && (image = imagesByDockerReference[container.image]) -->
+
+      <!-- ngIf: container.ports.length > 0 --><div row="" ng-if="container.ports.length > 0" class="pod-template-ports icon-row ng-scope">
+        <div>
+          <span data-icon="" aria-hidden="true" style="font-size:16px;line-height:normal"></span>
+        </div>
+        <div flex="">
+          Ports:
+          <!-- ngRepeat: port in container.ports | orderBy: 'containerPort' --><span ng-repeat="port in container.ports | orderBy: 'containerPort'" class="ng-scope">
+            <span class="nowrap ng-binding">3306/TCP<!-- ngIf: port.name --><!-- ngIf: port.hostPort --></span><!-- ngIf: !$last -->
+          </span><!-- end ngRepeat: port in container.ports | orderBy: 'containerPort' -->
+        </div>
+      </div><!-- end ngIf: container.ports.length > 0 -->
+
+      <!-- ngRepeat: mount in container.volumeMounts -->
+
+      <div hawtio-extension="" name="container-links"></div>
+
+    </div>
+  </div><!-- end ngRepeat: container in podTemplate.spec.containers -->
+</div>
+</pod-template>
+      <!-- spacer -->
+      <div flex=""></div>
+    </div>
+  </div>
+</div>
+</overview-deployment>
+            </div><!-- end ngIf: (podsByDeployment[deployment.metadata.name] | hashSize) > 0 || (deployment | isRecentDeployment : deploymentConfigs[deploymentConfigId]) || !(deployment | isDeployment) --><!-- end ngRepeat: deployment in deployments | orderObjectsByDate : true track by (deployment | uid) -->
+          </div><!-- end ngRepeat: (deploymentConfigId, deployments) in deploymentsByServiceByDeploymentConfig[serviceId] -->
+
+          <!-- Now go through any of the pods that are routed to by the service but not part of a deployment -->
+          <!-- ngRepeat: pod in monopodsByService[serviceId] track by (pod | uid) -->
+
+          <!-- TODO implement filters for empty and present to return booleans for cases like this -->
+          <!-- ngIf: (podsByService[serviceId] | hashSize) === 0 && (deploymentsByServiceByDeploymentConfig[serviceId] | hashSize) === 0 -->
+
+        </section><!-- end ngRepeat: (serviceId, service) in services --><section ng-repeat="(serviceId, service) in services" class="components components-group ng-scope" ng-attr-id="service-{{serviceId}}" id="service-frontend">
+
+          <div class="osc-object components-panel service ng-isolate-scope" ng-init="numPorts = service.spec.ports.length" kind="Service" resource="service">
+
+            <div class="component-block">
+              <div class="component">
+                <div ng-attr-title="{{service | serviceImplicitDNSName}}" class="component-label" title="frontend.example.svc">
+                  <!-- "service" class is present for e2e tests to check   -->
+                  Service <!-- ngIf: displayRouteByService[serviceId] --><span ng-if="displayRouteByService[serviceId]" class="ng-scope">: <a class="subtle-link service ng-binding" href="project/example/browse/services/frontend">frontend</a></span><!-- end ngIf: displayRouteByService[serviceId] -->
+                </div>
+
+                <!-- Show the route if present -->
+                <!-- ngIf: displayRouteByService[serviceId] --><h2 ng-if="displayRouteByService[serviceId]" ng-init="otherRoutes = (routesByService[serviceId] | hashSize) - 1" class="ng-scope">
+                  <!-- ngIf: (displayRouteByService[serviceId] | isWebRoute) --><span ng-if="(displayRouteByService[serviceId] | isWebRoute)" class="ng-scope">
+                    <!-- "route" class is present for e2e tests to check -->
+                    <a href="https://www.example.com/" class="route ng-binding" target="_blank">www.example.com</a>
+                  </span><!-- end ngIf: (displayRouteByService[serviceId] | isWebRoute) -->
+                  <!-- "route" class is present for e2e test -->
+                  <!-- ngIf: !(displayRouteByService[serviceId] | isWebRoute) -->
+                  <!-- ngIf: otherRoutes -->
+                </h2><!-- end ngIf: displayRouteByService[serviceId] -->
+
+                <!-- If no route is present, show the service name large -->
+                <!-- "service" class is present for e2e tests to check   -->
+                <!-- ngIf: !displayRouteByService[serviceId] -->
+              </div>
+
+              <div class="component meta-data">
+                <!-- ngIf: numPorts --><div ng-if="numPorts" class="ng-scope">
+                  <!--
+                  Show only the first two ports if there are many since we don't have much space here.
+                  The full list is visible elsewhere.
+                  -->
+                  <!-- ngRepeat: portMapping in service.spec.ports | orderBy:'port' | limitTo:2 --><span ng-repeat="portMapping in service.spec.ports | orderBy:'port' | limitTo:2" class="nowrap ng-scope">
+                    <!-- Group port mappings and allow multiple mappings to stack if needed -->
+                    <span class="port-mappings ng-binding">
+                      5432/TCP&thinsp;→&thinsp;8080<!-- ngIf: $index < (numPorts - 1) --></span>
+                  </span><!-- end ngRepeat: portMapping in service.spec.ports | orderBy:'port' | limitTo:2 -->
+                  <!-- ngIf: numPorts > 2 -->
+                </div><!-- end ngIf: numPorts -->
+              </div>
+            </div>
+          </div>
+
+          <!--
+          Iterate over deploymentConfigs for this service.
+          Find ones that don't have any deployments for this service.
+          These are likely new, and could have incoming builds, which we want to surface.
+           -->
+          <!-- ngRepeat: (deploymentConfigId, deploymentConfig) in deploymentConfigsByService[serviceId] --><!-- ngIf: !deploymentsByServiceByDeploymentConfig[serviceId][deploymentConfigId] --><!-- end ngRepeat: (deploymentConfigId, deploymentConfig) in deploymentConfigsByService[serviceId] -->
+          <!--
+          Iterate over all deployments for this service grouped by deploymentConfig (or lack thereof)
+          -->
+          <!-- ngRepeat: (deploymentConfigId, deployments) in deploymentsByServiceByDeploymentConfig[serviceId] --><div ng-repeat="(deploymentConfigId, deployments) in deploymentsByServiceByDeploymentConfig[serviceId]" class="ng-scope">
+            <!--
+            deploymentConfig could be null:
+            1. when we have replicationControllers that were not generated from a deploymentConfig (deploymentConfigId=='')
+            2. when the deploymentConfig for these deployments no longer exists
+            3. when the deploymentConfig for these deployments no longer falls under this service
+            -->
+            <!-- ngIf: deploymentConfigsByService[serviceId][deploymentConfigId] --><div ng-if="deploymentConfigsByService[serviceId][deploymentConfigId]" class="ng-scope">
+              <!--
+              Pods in deployments created from this deployment config will be routed to by this service.
+              Show things related to triggers that are about to create stuff, like builds.
+              -->
+              <triggers triggers="deploymentConfigsByService[serviceId][deploymentConfigId].spec.triggers" builds-by-output-image="recentBuildsByOutputImage" namespace="projectName" class="ng-isolate-scope"><div class="builds-block">
+  <!-- ngRepeat: trigger in triggers --><div class="builds ng-scope" ng-repeat="trigger in triggers">
+    <!-- ngIf: trigger.type === 'ImageChange' --><div ng-if="trigger.type === 'ImageChange'" class="ng-scope">
+      <!-- ngRepeat: build in buildsByOutputImage[(trigger.imageChangeParams.from | imageObjectRef : namespace)] | orderObjectsByDate track by (build | uid) -->
+    </div><!-- end ngIf: trigger.type === 'ImageChange' -->
+  </div><!-- end ngRepeat: trigger in triggers --><div class="builds ng-scope" ng-repeat="trigger in triggers">
+    <!-- ngIf: trigger.type === 'ImageChange' -->
+  </div><!-- end ngRepeat: trigger in triggers -->
+</div>
+
+
+
+</triggers>
+            </div><!-- end ngIf: deploymentConfigsByService[serviceId][deploymentConfigId] -->
+
+            <!-- ngRepeat: deployment in deployments | orderObjectsByDate : true track by (deployment | uid) --><!-- ngIf: (podsByDeployment[deployment.metadata.name] | hashSize) > 0 || (deployment | isRecentDeployment : deploymentConfigs[deploymentConfigId]) || !(deployment | isDeployment) --><div ng-repeat="deployment in deployments | orderObjectsByDate : true track by (deployment | uid)" ng-if="(podsByDeployment[deployment.metadata.name] | hashSize) > 0 || (deployment | isRecentDeployment : deploymentConfigs[deploymentConfigId]) || !(deployment | isDeployment)" class="animate-repeat ng-scope">
+
+              <!-- Make sure deploymentConfigs are loaded before testing if the deployment config is missing. -->
+              <overview-deployment rc="deployment" deployment-config-id="deploymentConfigId" deployment-config-missing="deploymentConfigs &amp;&amp; !deploymentConfigs[deploymentConfigId]" deployment-config-different-service="deploymentConfigs[deploymentConfigId] &amp;&amp; !deploymentConfigsByService[serviceId][deploymentConfigId]" images-by-docker-reference="imagesByDockerReference" builds="builds" pods="podsByDeployment[deployment.metadata.name]" alerts="alerts" class="ng-isolate-scope"><!--
+  Expects the following variables. All must be defined in the overviewDeployment directive scope.
+
+  rc   - ReplicationController. Required. May or may not have deployment annotations.
+  pods - [Pod]. Required.
+
+  deploymentConfigId               - String. Optional. If present, indicates this replication controller came from a deployment.
+  deploymentConfigMissing          - Boolean. Optional.
+  deploymentConfigDifferentService - Boolean. Optional.
+
+  imagesByDockerReference - map[dockerReference][]Image. Optional.
+  builds                  - map[buildId]build. Optional.
+ -->
+<div class="osc-object components-panel deployment-block ng-isolate-scope" kind="ReplicationController" resource="rc" ng-init="isDeployment = (deploymentConfigId &amp;&amp; (rc | annotation:'deploymentConfig') &amp;&amp; (rc | annotation:'deploymentVersion'))">
+
+  <!--
+  Connector to the containing service block.
+  Hidden by CSS when in non-service blocks.
+  -->
+  <div class="connector">
+    <i class="fa fa-search"></i>
+  </div>
+
+  <!-- Header for deployments. Surface deployment config and trigger info. -->
+  <!-- ngIf: isDeployment --><div class="component-block component-meta ng-scope" ng-if="isDeployment">
+    <div class="component">
+      <div class="component-label">
+        <span>Deployment: </span>
+        <a class="subtle-link ng-binding" ng-href="project/example/browse/deployments/frontend" href="project/example/browse/deployments/frontend">frontend</a>, <a class="subtle-link ng-binding" ng-href="project/example/browse/deployments/frontend/frontend-1" href="project/example/browse/deployments/frontend/frontend-1">#1</a>
+        <!-- ngIf: deploymentConfigMissing -->
+        <!-- ngIf: deploymentConfigDifferentService -->
+
+        <!-- Show status if not deployed or complete -->
+        <!-- ngIf: rc | deploymentIsInProgress -->
+        <span ng-switch="rc | deploymentStatus" class="hide-ng-leave">
+          <!-- ngSwitchWhen: Cancelled -->
+          <!-- ngSwitchWhen: Failed -->
+        </span>
+      </div>
+    </div>
+
+    <div class="component meta-data">
+      <relative-timestamp timestamp="rc.metadata.creationTimestamp" class="ng-isolate-scope"><span data-timestamp="2015-11-18T16:41:21Z" data-drop-suffix="" class="timestamp ng-binding" title="11/18/15 11:41 AM">3 hours ago</span></relative-timestamp><!-- ngIf: rc.causes.length --><span ng-if="rc.causes.length" class="ng-scope"><span>
+          <!-- ngRepeat: cause in rc.causes --><span class="deployment-trigger ng-scope" ng-repeat="cause in rc.causes">
+            <span ng-switch="cause.type">
+              <!-- ngSwitchWhen: ImageChange --><span ng-switch-when="ImageChange" class="ng-scope">
+                <!-- ngIf: cause.imageTrigger.from --><span ng-if="cause.imageTrigger.from" class="ng-scope">
+                  from <abbr title="origin-ruby-sample:latest">image</abbr> change
+                </span><!-- end ngIf: cause.imageTrigger.from -->
+              </span><!-- end ngSwitchWhen: -->
+              <!-- ngSwitchWhen: ConfigChange -->
+              <!-- ngSwitchDefault:  -->
+            </span>
+          </span><!-- end ngRepeat: cause in rc.causes -->
+        </span>
+      </span><!-- end ngIf: rc.causes.length -->
+    </div>
+  </div><!-- end ngIf: isDeployment -->
+
+  <!-- Header for replication controllers. Name and timestamp only. -->
+  <!-- ngIf: !isDeployment -->
+
+  <div row="" mobile="column" axis="center center" class="pod-block">
+    <!-- Pods donut chart and scaling controls -->
+    <div column="" class="overview-pods" axis="center center">
+      <div row="">
+        <!-- spacer -->
+        <div flex="" class="visible-xs-block"></div>
+
+        <div column="">
+          <pod-status-chart pods="pods" desired="getDesiredReplicas()" ng-click="viewPodsForDeployment(rc)" ng-class="{ clickable: (pods | hashSize) > 0 }" class="ng-isolate-scope clickable"><div ng-attr-id="{{chartId}}" class="pod-status-chart c3" id="pods-donut-chart-8" style="max-height: 150px; position: relative;"><svg width="150" height="150" style="overflow: hidden;"><defs><clipPath id="c3-1447877081005-clip"><rect width="150" height="146"></rect></clipPath><clipPath id="c3-1447877081005-clip-xaxis"><rect x="-31" y="-20" width="212" height="20"></rect></clipPath><clipPath id="c3-1447877081005-clip-yaxis"><rect x="-29" y="-4" width="20" height="170"></rect></clipPath><clipPath id="c3-1447877081005-clip-grid"><rect width="150" height="146"></rect></clipPath><clipPath id="c3-1447877081005-clip-subchart"><rect width="150"></rect></clipPath></defs><g transform="translate(0.5,4.5)"><text class="c3-text c3-empty" text-anchor="middle" dominant-baseline="middle" x="75" y="73" style="opacity: 0;"></text><rect class="c3-zoom-rect" width="150" height="146" style="opacity: 0;"></rect><g clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877081005-clip)" class="c3-regions" style="visibility: hidden;"></g><g clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877081005-clip-grid)" class="c3-grid" style="visibility: hidden;"><g class="c3-xgrid-focus"><line class="c3-xgrid-focus" x1="-10" x2="-10" y1="0" y2="146" style="visibility: hidden;"></line></g></g><g clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877081005-clip)" class="c3-chart"><g class="c3-event-rects c3-event-rects-single" style="fill-opacity: 0;"><rect class=" c3-event-rect c3-event-rect-0" x="0" y="0" width="150" height="146"></rect></g><g class="c3-chart-bars"><g class="c3-chart-bar c3-target c3-target-Running" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Running c3-bars c3-bars-Running" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-Not-Ready" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Not-Ready c3-bars c3-bars-Not-Ready" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-Warning" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Warning c3-bars c3-bars-Warning" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-Failed" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Failed c3-bars c3-bars-Failed" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-Pending" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Pending c3-bars c3-bars-Pending" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-Succeeded" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Succeeded c3-bars c3-bars-Succeeded" style="cursor: pointer;"></g></g><g class="c3-chart-bar c3-target c3-target-Unknown" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Unknown c3-bars c3-bars-Unknown" style="cursor: pointer;"></g></g></g><g class="c3-chart-lines"><g class="c3-chart-line c3-target c3-target-Running" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Running c3-lines c3-lines-Running"></g><g class=" c3-shapes c3-shapes-Running c3-areas c3-areas-Running"></g><g class=" c3-selected-circles c3-selected-circles-Running"></g><g class=" c3-shapes c3-shapes-Running c3-circles c3-circles-Running" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-Not-Ready" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Not-Ready c3-lines c3-lines-Not-Ready"></g><g class=" c3-shapes c3-shapes-Not-Ready c3-areas c3-areas-Not-Ready"></g><g class=" c3-selected-circles c3-selected-circles-Not-Ready"></g><g class=" c3-shapes c3-shapes-Not-Ready c3-circles c3-circles-Not-Ready" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-Warning" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Warning c3-lines c3-lines-Warning"></g><g class=" c3-shapes c3-shapes-Warning c3-areas c3-areas-Warning"></g><g class=" c3-selected-circles c3-selected-circles-Warning"></g><g class=" c3-shapes c3-shapes-Warning c3-circles c3-circles-Warning" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-Failed" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Failed c3-lines c3-lines-Failed"></g><g class=" c3-shapes c3-shapes-Failed c3-areas c3-areas-Failed"></g><g class=" c3-selected-circles c3-selected-circles-Failed"></g><g class=" c3-shapes c3-shapes-Failed c3-circles c3-circles-Failed" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-Pending" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Pending c3-lines c3-lines-Pending"></g><g class=" c3-shapes c3-shapes-Pending c3-areas c3-areas-Pending"></g><g class=" c3-selected-circles c3-selected-circles-Pending"></g><g class=" c3-shapes c3-shapes-Pending c3-circles c3-circles-Pending" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-Succeeded" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Succeeded c3-lines c3-lines-Succeeded"></g><g class=" c3-shapes c3-shapes-Succeeded c3-areas c3-areas-Succeeded"></g><g class=" c3-selected-circles c3-selected-circles-Succeeded"></g><g class=" c3-shapes c3-shapes-Succeeded c3-circles c3-circles-Succeeded" style="cursor: pointer;"></g></g><g class="c3-chart-line c3-target c3-target-Unknown" style="opacity: 1; pointer-events: none;"><g class=" c3-shapes c3-shapes-Unknown c3-lines c3-lines-Unknown"></g><g class=" c3-shapes c3-shapes-Unknown c3-areas c3-areas-Unknown"></g><g class=" c3-selected-circles c3-selected-circles-Unknown"></g><g class=" c3-shapes c3-shapes-Unknown c3-circles c3-circles-Unknown" style="cursor: pointer;"></g></g></g><g class="c3-chart-arcs" transform="translate(75,68)"><text class="c3-chart-arcs-title" style="text-anchor: middle; opacity: 1;"><tspan class="pod-count donut-title-big-pf" dy="0" x="0">2</tspan><tspan class="donut-title-small-pf" dy="20" x="0">pods</tspan></text><g class="c3-chart-arc c3-target c3-target-Running"><g class=" c3-shapes c3-shapes-Running c3-arcs c3-arcs-Running"><path class=" c3-shape c3-shape c3-arc c3-arc-Running" transform="scale(1,1)" style="fill: rgb(0, 185, 228); cursor: pointer; opacity: 1;" d="M0,64.6A64.6,64.6 0 1,1 0,-64.6A64.6,64.6 0 1,1 0,64.6M0,54.599999999999994A54.599999999999994,54.599999999999994 0 1,0 0,-54.599999999999994A54.599999999999994,54.599999999999994 0 1,0 0,54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(2.443476525998757e-15,39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-Not-Ready"><g class=" c3-shapes c3-shapes-Not-Ready c3-arcs c3-arcs-Not-Ready"><path class=" c3-shape c3-shape c3-arc c3-arc-Not-Ready" transform="scale(1,1)" style="fill: rgb(190, 237, 249); cursor: pointer; opacity: 1;" d="M-1.1866827483737851e-14,-64.6A64.6,64.6 0 0,1 -1.1866827483737851e-14,-64.6L-1.002985728501682e-14,-54.599999999999994A54.599999999999994,54.599999999999994 0 0,0 -1.002985728501682e-14,-54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(-7.33042957799627e-15,-39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-Warning"><g class=" c3-shapes c3-shapes-Warning c3-arcs c3-arcs-Warning"><path class=" c3-shape c3-shape c3-arc c3-arc-Warning" transform="scale(1,1)" style="fill: rgb(249, 214, 122); cursor: pointer; opacity: 1;" d="M-1.1866827483737851e-14,-64.6A64.6,64.6 0 0,1 -1.1866827483737851e-14,-64.6L-1.002985728501682e-14,-54.599999999999994A54.599999999999994,54.599999999999994 0 0,0 -1.002985728501682e-14,-54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(-7.33042957799627e-15,-39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-Failed"><g class=" c3-shapes c3-shapes-Failed c3-arcs c3-arcs-Failed"><path class=" c3-shape c3-shape c3-arc c3-arc-Failed" transform="scale(1,1)" style="fill: rgb(217, 83, 79); cursor: pointer; opacity: 1;" d="M-1.1866827483737851e-14,-64.6A64.6,64.6 0 0,1 -1.1866827483737851e-14,-64.6L-1.002985728501682e-14,-54.599999999999994A54.599999999999994,54.599999999999994 0 0,0 -1.002985728501682e-14,-54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(-7.33042957799627e-15,-39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-Pending"><g class=" c3-shapes c3-shapes-Pending c3-arcs c3-arcs-Pending"><path class=" c3-shape c3-shape c3-arc c3-arc-Pending" transform="scale(1,1)" style="fill: rgb(232, 232, 232); cursor: pointer; opacity: 1;" d="M-1.1866827483737851e-14,-64.6A64.6,64.6 0 0,1 -1.1866827483737851e-14,-64.6L-1.002985728501682e-14,-54.599999999999994A54.599999999999994,54.599999999999994 0 0,0 -1.002985728501682e-14,-54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(-7.33042957799627e-15,-39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-Succeeded"><g class=" c3-shapes c3-shapes-Succeeded c3-arcs c3-arcs-Succeeded"><path class=" c3-shape c3-shape c3-arc c3-arc-Succeeded" transform="scale(1,1)" style="fill: rgb(63, 156, 53); cursor: pointer; opacity: 1;" d="M-1.1866827483737851e-14,-64.6A64.6,64.6 0 0,1 -1.1866827483737851e-14,-64.6L-1.002985728501682e-14,-54.599999999999994A54.599999999999994,54.599999999999994 0 0,0 -1.002985728501682e-14,-54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(-7.33042957799627e-15,-39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g><g class="c3-chart-arc c3-target c3-target-Unknown"><g class=" c3-shapes c3-shapes-Unknown c3-arcs c3-arcs-Unknown"><path class=" c3-shape c3-shape c3-arc c3-arc-Unknown" transform="scale(1,1)" style="fill: rgb(249, 214, 122); cursor: pointer; opacity: 1;" d="M-1.1866827483737851e-14,-64.6A64.6,64.6 0 0,1 -1.1866827483737851e-14,-64.6L-1.002985728501682e-14,-54.599999999999994A54.599999999999994,54.599999999999994 0 0,0 -1.002985728501682e-14,-54.599999999999994Z"></path></g><text dy=".35em" class="" transform="translate(-7.33042957799627e-15,-39.905)" style="opacity: 1; text-anchor: middle; pointer-events: none;"></text></g></g><g class="c3-chart-texts"><g class="c3-chart-text c3-target c3-target-Running" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Running"></g></g><g class="c3-chart-text c3-target c3-target-Not-Ready" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Not-Ready"></g></g><g class="c3-chart-text c3-target c3-target-Warning" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Warning"></g></g><g class="c3-chart-text c3-target c3-target-Failed" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Failed"></g></g><g class="c3-chart-text c3-target c3-target-Pending" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Pending"></g></g><g class="c3-chart-text c3-target c3-target-Succeeded" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Succeeded"></g></g><g class="c3-chart-text c3-target c3-target-Unknown" style="opacity: 1; pointer-events: none;"><g class=" c3-texts c3-texts-Unknown"></g></g></g></g><g clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877081005-clip-grid)" class="c3-grid c3-grid-lines"><g class="c3-xgrid-lines"></g><g class="c3-ygrid-lines"></g></g><g class="c3-axis c3-axis-x" clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877081005-clip-xaxis)" transform="translate(0,146)" style="visibility: visible; opacity: 0;"><text class="c3-axis-x-label" transform="" x="150" dx="-0.5em" dy="-0.5em" style="text-anchor: end;"></text><g class="tick" transform="translate(75, 0)" style="opacity: 1;"><line y2="6" x1="0" x2="0"></line><text y="9" x="0" transform="" style="text-anchor: middle; display: block;"><tspan x="0" dy=".71em" dx="0">0</tspan></text></g><path class="domain" d="M0,6V0H150V6"></path></g><g class="c3-axis c3-axis-y" clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877081005-clip-yaxis)" transform="translate(0,0)" style="visibility: visible; opacity: 0;"><text class="c3-axis-y-label" transform="rotate(-90)" x="0" dx="-0.5em" dy="1.2em" style="text-anchor: end;"></text><g class="tick" transform="translate(0,146)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">-0.2</tspan></text></g><g class="tick" transform="translate(0,134)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0</tspan></text></g><g class="tick" transform="translate(0,122)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.2</tspan></text></g><g class="tick" transform="translate(0,110)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.4</tspan></text></g><g class="tick" transform="translate(0,98)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.6</tspan></text></g><g class="tick" transform="translate(0,86)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">0.8</tspan></text></g><g class="tick" transform="translate(0,74)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">1</tspan></text></g><g class="tick" transform="translate(0,62)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">1.2</tspan></text></g><g class="tick" transform="translate(0,50)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">1.4</tspan></text></g><g class="tick" transform="translate(0,38)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">1.6</tspan></text></g><g class="tick" transform="translate(0,26)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">1.8</tspan></text></g><g class="tick" transform="translate(0,14)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">2</tspan></text></g><g class="tick" transform="translate(0,1)" style="opacity: 1;"><line x2="-6"></line><text x="-9" y="0" style="text-anchor: end;"><tspan x="-9" dy="3">2.2</tspan></text></g><path class="domain" d="M-6,1H0V146H-6"></path></g><g class="c3-axis c3-axis-y2" transform="translate(150,0)" style="visibility: hidden; opacity: 0;"><text class="c3-axis-y2-label" transform="rotate(-90)" x="0" dx="-0.5em" dy="-0.5em" style="text-anchor: end;"></text><g class="tick" transform="translate(0,146)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0</tspan></text></g><g class="tick" transform="translate(0,132)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.1</tspan></text></g><g class="tick" transform="translate(0,118)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.2</tspan></text></g><g class="tick" transform="translate(0,103)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.3</tspan></text></g><g class="tick" transform="translate(0,88)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.4</tspan></text></g><g class="tick" transform="translate(0,74)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.5</tspan></text></g><g class="tick" transform="translate(0,60)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.6</tspan></text></g><g class="tick" transform="translate(0,45)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.7</tspan></text></g><g class="tick" transform="translate(0,30)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.8</tspan></text></g><g class="tick" transform="translate(0,16)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">0.9</tspan></text></g><g class="tick" transform="translate(0,1)" style="opacity: 1;"><line x2="6" y2="0"></line><text x="9" y="0" style="text-anchor: start;"><tspan x="9" dy="3">1</tspan></text></g><path class="domain" d="M6,1H0V146H6"></path></g></g><g transform="translate(0.5,150.5)" style="visibility: hidden;"><g clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877081005-clip-subchart)" class="c3-chart"><g class="c3-chart-bars"></g><g class="c3-chart-lines"></g></g><g clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877081005-clip)" class="c3-brush" style="pointer-events: all; -webkit-tap-highlight-color: rgba(0, 0, 0, 0);"><rect class="background" x="0" width="150" style="visibility: hidden; cursor: crosshair;"></rect><rect class="extent" x="0" width="0" style="cursor: move;"></rect><g class="resize e" transform="translate(0,0)" style="cursor: ew-resize; display: none;"><rect x="-3" width="6" height="6" style="visibility: hidden;"></rect></g><g class="resize w" transform="translate(0,0)" style="cursor: ew-resize; display: none;"><rect x="-3" width="6" height="6" style="visibility: hidden;"></rect></g></g><g class="c3-axis-x" transform="translate(0,0)" clip-path="url(https://localhost:9000/project/example/overview?main-tab=openshiftConsole%2Foverview#c3-1447877081005-clip-xaxis)" style="opacity: 0;"><g class="tick" transform="translate(75, 0)" style="opacity: 1;"><line y2="6" x1="0" x2="0"></line><text y="9" x="0" transform="" style="text-anchor: middle; display: block;"><tspan x="0" dy=".71em" dx="0">0</tspan></text></g><path class="domain" d="M0,6V0H150V6"></path></g></g><g transform="translate(0,150)" style="visibility: hidden;"></g></svg><div class="c3-tooltip-container" style="position: absolute; pointer-events: none; display: none;"></div></div>
+<!-- Include text values for screen readers -->
+<div class="sr-only">
+  Pod status:
+  <!-- ngRepeat: column in chartConfig.data.columns -->
+</div>
+</pod-status-chart>
+        </div>
+
+        <div column="" class="scaling-controls">
+          <!-- spacer -->
+          <div flex=""></div>
+          <div column="">
+            <div>
+              <a href="" ng-click="scaleUp()" title="Scale up">
+                <i class="fa fa-chevron-up"></i>
+                <span class="sr-only">Scale up</span>
+              </a>
+            </div>
+            <div>
+              <!-- Remove the title when disabled because the not-allowed styled cursor overlaps the tooltip on some browsers. -->
+              <a href="" ng-click="scaleDown()" ng-class="{ disabled: getDesiredReplicas() === 0 }" ng-attr-title="{{(getDesiredReplicas() === 0) ? undefined : 'Scale down'}}" title="Scale down">
+                <i class="fa fa-chevron-down"></i>
+                <span class="sr-only">Scale down</span>
+              </a>
+            </div>
+          </div>
+          <!-- spacer -->
+          <div flex=""></div>
+        </div>
+
+        <!-- spacer -->
+        <div flex="" class="visible-xs-block"></div>
+      </div>
+    </div>
+
+    <!-- Pod template -->
+    <div column="" grow="2" class="pod-template-column">
+      <!-- spacer -->
+      <div flex=""></div>
+      <pod-template pod-template="rc.spec.template" images-by-docker-reference="imagesByDockerReference" builds="builds" class="ng-isolate-scope"><!--
+  Expects the following variables:
+  podTemplate
+  imagesByDockerReference (optional)
+  builds (optional)
+ -->
+<div class="pod-template-container">
+  <!-- ngRepeat: container in podTemplate.spec.containers --><div class="pod-template-block ng-scope" ng-repeat="container in podTemplate.spec.containers">
+    <div class="pod-template">
+      <div class="component-label ng-binding">Container: ruby-helloworld</div>
+      <!-- ngIf: container.image --><div row="" ng-if="container.image" class="pod-template-image icon-row ng-scope">
+        <div>
+          <span class="pficon pficon-image" aria-hidden="true"></span>
+        </div>
+        <div flex="">
+          Image:
+          <!-- ngIf: !imagesByDockerReference[container.image] -->
+          <!-- ngIf: imagesByDockerReference[container.image] --><span ng-if="imagesByDockerReference[container.image]" class="ng-scope">
+            <a ng-href="project/example/browse/images/origin-ruby-sample" class="ng-binding" href="project/example/browse/images/origin-ruby-sample">example/origin-ruby-sample</a>
+            (<span title="sha256:00e8829c839d3a417d3fefb732f3f0a1da9763282a87b448916d36b9a3d07823" class="ng-binding">00e8829</span>)
+          </span><!-- end ngIf: imagesByDockerReference[container.image] -->
+        </div>
+      </div><!-- end ngIf: container.image -->
+      <!-- ngIf: imagesByDockerReference && container.image && (image = imagesByDockerReference[container.image]) --><div ng-if="imagesByDockerReference &amp;&amp; container.image &amp;&amp; (image = imagesByDockerReference[container.image])" class="pod-template-build ng-scope">
+        <!-- ngIf: build = (image | buildForImage : builds) --><div row="" class="icon-row ng-scope" ng-if="build = (image | buildForImage : builds)">
+          <div>
+            <span class="fa fa-refresh" aria-hidden="true"></span>
+          </div>
+          <div flex="">Build:
+            <a ng-href="project/example/browse/builds/ruby-sample-build/ruby-sample-build-1" href="project/example/browse/builds/ruby-sample-build/ruby-sample-build-1">
+              <!-- ngIf: (build | annotation : 'buildNumber') --><span ng-if="(build | annotation : 'buildNumber')" class="ng-binding ng-scope">#1</span><!-- end ngIf: (build | annotation : 'buildNumber') -->
+              <!-- ngIf: !(build | annotation : 'buildNumber') -->
+            </a>
+            <!-- ngIf: build.spec.source --><span ng-if="build.spec.source" class="ng-scope">
+              from
+              <span class="fa fa-code" aria-hidden="true"></span>
+              <span>
+                <span ng-switch="build.spec.source.type">
+                  <!-- ngSwitchWhen: Git --><span ng-switch-when="Git" class="ng-scope">
+                    <!-- ngIf: build.spec.revision.git.commit -->
+                    <!-- ngIf: !build.spec.revision.git.commit --><span ng-if="!build.spec.revision.git.commit" class="ng-scope">
+                      <osc-git-link uri="build.spec.source.git.uri" class="ng-isolate-scope"><a ng-href="https://github.com/openshift/ruby-hello-world" ng-transclude="" href="https://github.com/openshift/ruby-hello-world"><span class="ng-binding ng-scope">https://github.com/openshift/ruby-hello-world.git</span></a></osc-git-link>
+                    </span><!-- end ngIf: !build.spec.revision.git.commit -->
+                  </span><!-- end ngSwitchWhen: -->
+                  <!-- ngSwitchDefault:  -->
+                </span>
+              </span>
+            </span><!-- end ngIf: build.spec.source -->
+          </div>
+        </div><!-- end ngIf: build = (image | buildForImage : builds) -->
+      </div><!-- end ngIf: imagesByDockerReference && container.image && (image = imagesByDockerReference[container.image]) -->
+
+      <!-- ngIf: container.ports.length > 0 --><div row="" ng-if="container.ports.length > 0" class="pod-template-ports icon-row ng-scope">
+        <div>
+          <span data-icon="" aria-hidden="true" style="font-size:16px;line-height:normal"></span>
+        </div>
+        <div flex="">
+          Ports:
+          <!-- ngRepeat: port in container.ports | orderBy: 'containerPort' --><span ng-repeat="port in container.ports | orderBy: 'containerPort'" class="ng-scope">
+            <span class="nowrap ng-binding">8080/TCP<!-- ngIf: port.name --><!-- ngIf: port.hostPort --></span><!-- ngIf: !$last -->
+          </span><!-- end ngRepeat: port in container.ports | orderBy: 'containerPort' -->
+        </div>
+      </div><!-- end ngIf: container.ports.length > 0 -->
+
+      <!-- ngRepeat: mount in container.volumeMounts -->
+
+      <div hawtio-extension="" name="container-links"></div>
+
+    </div>
+  </div><!-- end ngRepeat: container in podTemplate.spec.containers -->
+</div>
+</pod-template>
+      <!-- spacer -->
+      <div flex=""></div>
+    </div>
+  </div>
+</div>
+</overview-deployment>
+            </div><!-- end ngIf: (podsByDeployment[deployment.metadata.name] | hashSize) > 0 || (deployment | isRecentDeployment : deploymentConfigs[deploymentConfigId]) || !(deployment | isDeployment) --><!-- end ngRepeat: deployment in deployments | orderObjectsByDate : true track by (deployment | uid) -->
+          </div><!-- end ngRepeat: (deploymentConfigId, deployments) in deploymentsByServiceByDeploymentConfig[serviceId] -->
+
+          <!-- Now go through any of the pods that are routed to by the service but not part of a deployment -->
+          <!-- ngRepeat: pod in monopodsByService[serviceId] track by (pod | uid) -->
+
+          <!-- TODO implement filters for empty and present to return booleans for cases like this -->
+          <!-- ngIf: (podsByService[serviceId] | hashSize) === 0 && (deploymentsByServiceByDeploymentConfig[serviceId] | hashSize) === 0 -->
+
+        </section><!-- end ngRepeat: (serviceId, service) in services -->
+
+        <!-- Show deploymentsConfigs not in a service -->
+        <!-- ngRepeat: (deploymentConfigId, deployments) in deploymentsByServiceByDeploymentConfig[''] -->
+
+        <!-- ngRepeat: pod in monopodsByService[''] track by (pod | uid) -->
+      </div><!-- end ngIf: overviewMode == 'tiles' -->
+
+    </div>
+  </div>
+      </div>
+    </div>
+  </div>
+  <div class="sidebar-right sidebar-pf sidebar-pf-right">
+    <div class="container-fluid">
+      <div class="sidebar-header sidebar-header-bleed-left sidebar-header-bleed-right">
+        <h2 class="h5">Details</h2>
+      </div>
+      <osc-object-describer class="ng-isolate-scope"><div>
+  <!-- ngIf: !resource --><div ng-if="!resource" class="ng-scope">
+    <p>Select an object to see more details.</p>
+
+    <span class="sidebar-help">
+      <p>A <strong>pod</strong> contains one or more Docker containers that
+        run together on a node, containing your application code.</p>
+
+      <p>A <strong>service</strong> groups pods and provides a common DNS name and
+        an optional, load-balanced IP address to access them.</p>
+
+      <p>A <strong>deployment</strong> is an update to your application, triggered by
+        a changed image or configuration.</p>
+    </span>
+  </div><!-- end ngIf: !resource -->
+
+  <!-- ngIf: resource -->
+</div>
+</osc-object-describer>
+    </div>
+  </div>
+</div>
+</project-page>
+</div>
+</div>
+
+    <noscript class="attention-message">&lt;h1&gt;To use OpenShift, please enable JavaScript.&lt;/h1&gt;</noscript>
+
+    <script src="config.js"></script>
+
+    <!-- build:js(.) scripts/oldieshim.js -->
+    <!--[if lt IE 9]>
+    <script src="bower_components/es5-shim/es5-shim.js"></script>
+    <script src="bower_components/json3/lib/json3.js"></script>
+    <![endif]-->
+    <!-- endbuild -->
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <script src="bower_components/es5-dom-shim/__COMPILE/a.js"></script>
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-patternfly/dist/angular-patternfly.js"></script>
+    <script src="bower_components/uri.js/src/URI.js"></script>
+    <script src="bower_components/uri.js/src/URITemplate.js"></script>
+    <script src="bower_components/uri.js/src/jquery.URI.js"></script>
+    <script src="bower_components/uri.js/src/URI.fragmentURI.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/patternfly/components/bootstrap-combobox/js/bootstrap-combobox.js"></script>
+    <script src="bower_components/patternfly/components/bootstrap-datepicker/dist/js/bootstrap-datepicker.js"></script>
+    <script src="bower_components/patternfly/components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/patternfly/components/bootstrap-select/dist/js/bootstrap-select.js"></script>
+    <script src="bower_components/patternfly/components/bootstrap-treeview/dist/bootstrap-treeview.min.js"></script>
+    <script src="bower_components/patternfly/components/c3/c3.min.js"></script>
+    <script src="bower_components/js-logger/src/logger.js"></script>
+    <script src="bower_components/hawtio-core/hawtio-core.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/hawtio-core-navigation/dist/hawtio-core-navigation.js"></script>
+    <script src="bower_components/hawtio-extension-service/dist/hawtio-extension-service.js"></script>
+    <script src="bower_components/sifter/sifter.js"></script>
+    <script src="bower_components/microplugin/src/microplugin.js"></script>
+    <script src="bower_components/selectize/dist/js/selectize.js"></script>
+    <script src="bower_components/zeroclipboard/dist/ZeroClipboard.js"></script>
+    <script src="bower_components/messenger/build/js/messenger.js"></script>
+    <script src="bower_components/messenger/build/js/messenger-theme-flat.js"></script>
+    <script src="bower_components/kubernetes-label-selector/labelSelector.js"></script>
+    <script src="bower_components/kubernetes-label-selector/labelFilter.js"></script>
+    <script src="bower_components/d3/d3.js"></script>
+    <script src="bower_components/kubernetes-topology-graph/dist/topology-graph.js"></script>
+    <script src="bower_components/term.js/src/term.js"></script>
+    <script src="bower_components/kubernetes-container-terminal/dist/container-terminal.js"></script>
+    <script src="bower_components/kubernetes-object-describer/dist/object-describer.js"></script>
+    <script src="bower_components/openshift-object-describer/dist/object-describer.js"></script>
+    <script src="bower_components/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- This needs to be loaded before scripts.js -->
+    <script src="scripts/templates.js"></script>
+
+        <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/app.js"></script>
+        <script src="scripts/services/logger.js"></script>
+        <script src="scripts/services/ws.js"></script>
+        <script src="scripts/services/userstore.js"></script>
+        <script src="scripts/services/auth.js"></script>
+        <script src="scripts/services/data.js"></script>
+        <script src="scripts/services/discovery.js"></script>
+        <script src="scripts/services/project.js"></script>
+        <script src="scripts/services/applicationGenerator.js"></script>
+        <script src="scripts/services/alertMessage.js"></script>
+        <script src="scripts/services/login.js"></script>
+        <script src="scripts/services/logout.js"></script>
+        <script src="scripts/services/navigate.js"></script>
+        <script src="scripts/services/nameGenerator.js"></script>
+        <script src="scripts/services/tasks.js"></script>
+        <script src="scripts/services/notification.js"></script>
+        <script src="scripts/services/imageStreamResolver.js"></script>
+        <script src="scripts/services/util.js"></script>
+        <script src="scripts/services/builds.js"></script>
+        <script src="scripts/services/deployments.js"></script>
+        <script src="scripts/services/imagestreams.js"></script>
+        <script src="scripts/services/metrics.js"></script>
+        <script src="scripts/controllers/projects.js"></script>
+        <script src="scripts/controllers/project.js"></script>
+        <script src="scripts/controllers/pods.js"></script>
+        <script src="scripts/controllers/pod.js"></script>
+        <script src="scripts/controllers/overview.js"></script>
+        <script src="scripts/controllers/settings.js"></script>
+        <script src="scripts/controllers/builds.js"></script>
+        <script src="scripts/controllers/buildConfig.js"></script>
+        <script src="scripts/controllers/build.js"></script>
+        <script src="scripts/controllers/images.js"></script>
+        <script src="scripts/controllers/image.js"></script>
+        <script src="scripts/controllers/deployments.js"></script>
+        <script src="scripts/controllers/deploymentConfig.js"></script>
+        <script src="scripts/controllers/deployment.js"></script>
+        <script src="scripts/controllers/services.js"></script>
+        <script src="scripts/controllers/service.js"></script>
+        <script src="scripts/controllers/routes.js"></script>
+        <script src="scripts/controllers/route.js"></script>
+        <script src="scripts/controllers/create/createFromImage.js"></script>
+        <script src="scripts/controllers/create/nextSteps.js"></script>
+        <script src="scripts/controllers/newfromtemplate.js"></script>
+        <script src="scripts/controllers/labels.js"></script>
+        <script src="scripts/controllers/tasks.js"></script>
+        <script src="scripts/controllers/events.js"></script>
+        <script src="scripts/controllers/util/oauth.js"></script>
+        <script src="scripts/controllers/util/error.js"></script>
+        <script src="scripts/controllers/util/logout.js"></script>
+        <script src="scripts/controllers/create.js"></script>
+        <script src="scripts/controllers/createProject.js"></script>
+        <script src="scripts/controllers/modals/deleteModal.js"></script>
+        <script src="scripts/directives/date.js"></script>
+        <script src="scripts/directives/deleteButton.js"></script>
+        <script src="scripts/directives/oscFileInput.js"></script>
+        <script src="scripts/directives/oscFormSection.js"></script>
+        <script src="scripts/directives/oscGitLink.js"></script>
+        <script src="scripts/directives/oscImageSummary.js"></script>
+        <script src="scripts/directives/oscKeyValues.js"></script>
+        <script src="scripts/directives/oscRouting.js"></script>
+        <script src="scripts/directives/resources.js"></script>
+        <script src="scripts/directives/overviewDeployment.js"></script>
+        <script src="scripts/directives/nav.js"></script>
+        <script src="scripts/directives/alerts.js"></script>
+        <script src="scripts/directives/popups.js"></script>
+        <script src="scripts/directives/util.js"></script>
+        <script src="scripts/directives/labels.js"></script>
+        <script src="scripts/directives/templateopt.js"></script>
+        <script src="scripts/directives/tasks.js"></script>
+        <script src="scripts/directives/truncate.js"></script>
+        <script src="scripts/directives/catalog.js"></script>
+        <script src="scripts/directives/oscObjectDescriber.js"></script>
+        <script src="scripts/directives/metrics.js"></script>
+		<script src="scripts/directives/logViewer.js"></script>
+        <script src="scripts/directives/statusIcon.js"></script>
+        <script src="scripts/directives/ellipsisLoader.js"></script>
+		<script src="scripts/directives/podStatusChart.js"></script>
+        <script src="scripts/filters/date.js"></script>
+        <script src="scripts/filters/resources.js"></script>
+        <script src="scripts/filters/util.js"></script>
+        <script src="scripts/extensions/javaLink.js"></script>
+        <script src="scripts/directives/affix.js"></script>
+        <script src="scripts/services/logLinks.js"></script>
+        <!-- endbuild -->
+
+    <!-- Load any extensions last. -->
+    <script src="scripts/extensions.js"></script>
+
+
+<script type="text/javascript">document.write('<script src="' + (location.protocol || 'http:') + '//' + (location.hostname || 'localhost') + ':35729/livereload.js?snipver=1" type="text/javascript"><\/script>')</script><script src="https://localhost:35729/livereload.js?snipver=1" type="text/javascript"></script>
+
+
+</body></html>

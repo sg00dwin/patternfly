@@ -9,7 +9,7 @@
 *.swo
 
 # Ignore local Bower packages
-components/
+# components/
 bower_components/
 
 # Ignore local nodejs packages
