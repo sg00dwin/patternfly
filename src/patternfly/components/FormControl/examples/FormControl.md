@@ -11,46 +11,45 @@ cssPrefix: pf-v6-c-form-control
 **Note:** In webkit browsers, inputs with status icons that are autocompleted will have their icons removed by the user agent stylesheet. If the field does not need to use autocomplete, turn it off with `autocomplete="off"` to avoid the problem. Otherwise, use [helper text](/components/helper-text/html-demos)  instead to ensure that the status will remain visible if the field is autocompleted.
 
 ```hbs
-{{> form-control controlType="input" input="true" form-control--attribute='type="text" value="Standard" id="input-standard" aria-label="Standard input example"'}}
+{{> form-control controlType="input" input="true" form-control--attribute='type="text" value="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwStandard" id="input-standard" aria-label="Standard input example"'}}
 <br>
 {{> form-control controlType="input" input="true" form-control--attribute='type="text" placeholder="Placeholder" id="input-placeholder" aria-label="Placeholder input example"'}}
 <br>
-{{> form-control controlType="input" input="true" form-control--IsReadonly="true" form-control--attribute='type="text" value="Readonly" id="input-readonly" aria-label="Readonly input example"'}}
+{{> form-control controlType="input" input="true" form-control--IsReadonly="true" form-control--attribute='type="text" value="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwReadonly" id="input-readonly" aria-label="Readonly input example"'}}
 <br>
-{{> form-control controlType="input" input="true" form-control--IsPlain="true" form-control--IsReadonly="true" form-control--attribute='type="text" value="Readonly plain" id="input-readonly-plain" aria-label="Readonly plain input example"'}}
+{{> form-control controlType="input" input="true" form-control--IsPlain="true" form-control--IsReadonly="true" form-control--attribute='type="text" value="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwReadonly plain" id="input-readonly-plain" aria-label="Readonly plain input example"'}}
 <br>
-{{> form-control controlType="input" input="true" form-control--IsDisabled="true" form-control--attribute='type="text" value="Disabled" id="input-disabled" aria-label="Disabled input example"'}}
+{{> form-control controlType="input" input="true" form-control--IsDisabled="true" form-control--attribute='type="text" value="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwDisabled" id="input-disabled" aria-label="Disabled input example"'}}
 <br>
-{{> form-control controlType="input" input="true" form-control--IsSuccess="true" form-control--attribute='type="text" value="Success" id="input-success" aria-label="Success state input example"'}}
+{{> form-control controlType="input" input="true" form-control--IsSuccess="true" form-control--attribute='type="text" value="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwSuccess" id="input-success" aria-label="Success state input example"'}}
 <br>
-{{> form-control controlType="input" input="true" form-control--IsWarning="true" form-control--attribute='type="text" value="Warning" id="input-warning" aria-label="Warning state input example"'}}
+{{> form-control controlType="input" input="true" form-control--IsWarning="true" form-control--attribute='type="text" value="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwWarning" id="input-warning" aria-label="Warning state input example"'}}
 <br>
-{{> form-control controlType="input" input="true" form-control--IsError="true" form-control--attribute='required type="text" value="Error" id="input-error" aria-invalid="true" aria-label="Error state input example"'}}
+{{> form-control controlType="input" input="true" form-control--IsError="true" form-control--attribute='required type="text" value="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwError" id="input-error" aria-invalid="true" aria-label="Error state input example"'}}
 <br>
-{{> form-control controlType="input" input="true" form-control--IsExpanded="true" form-control--attribute='type="text" value="Expanded" id="input-expanded" aria-label="Expanded input example"'}}
+{{> form-control controlType="input" input="true" form-control--IsExpanded="true" form-control--attribute='type="text" value="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwExpanded" id="input-expanded" aria-label="Expanded input example"'}}
 <br>
-{{> form-control controlType="input" input="true" form-control--HasIcon="calendar" form-control--attribute='type="text" value="Calendar" id="input-calendar" name="input-calendar" aria-label="Calendar input example"'}}
+{{> form-control controlType="input" input="true" form-control--HasIcon="calendar" form-control--attribute='type="text" value="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwCalendar" id="input-calendar" name="input-calendar" aria-label="Calendar input example"'}}
 <br>
-{{> form-control controlType="input" input="true" form-control--IsWarning="true" form-control--HasIcon="clock" form-control--attribute='type="text" value="Clock (invalid)" id="input-clock" name="input-clock" aria-label="Clock input example"'}}
+{{> form-control controlType="input" input="true" form-control--IsWarning="true" form-control--HasIcon="clock" form-control--attribute='type="text" value="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwClock (invalid)" id="input-clock" name="input-clock" aria-label="Clock input example"'}}
 <br>
-{{> form-control controlType="input" input="true" form-control--HasIcon="bell" form-control--attribute='type="text" value="Custom icon" id="input-custom-icon" name="custom-icon" aria-label="Custom icon input example"'}}
+{{> form-control controlType="input" input="true" form-control--HasIcon="bell" form-control--attribute='type="text" value="wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwCustom icon" id="input-custom-icon" name="custom-icon" aria-label="Custom icon input example"'}}
 ```
 
 ### Select
 ```hbs
 {{#> form-control controlType="select" form-control--IsPlaceholder="true" form-control--attribute='id="select-selectable-placeholder" name="select-selectable-placeholder" aria-label="Selectable placeholder select example"'}}
-  <option value="" selected>Selectable placeholder</option>
-  <option value="Mr">Mr</option>
-  <option value="Miss">Miss</option>
-  <option value="Mrs" >Mrs</option>
-  <option value="Ms">Ms</option>
-  <option value="Dr">Dr</option>
+  <option value="" selected>Selectable placeholderwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</option>
+  <option value="Miss">Misswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</option>
+  <option value="Mrs" >Mrswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</option>
+  <option value="Ms">Mswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</option>
+  <option value="Dr">Drwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</option>
   <option value="Dr" disabled>Disabled option</option>
   <option value="Other">Other</option>
 {{/form-control}}
 <br>
 {{#> form-control controlType="select" form-control--IsPlaceholder="true" form-control--attribute='id="select-non-selectable-placeholder" name="select-non-selectable-placeholder" aria-label="Non-selectable placeholder select example"'}}
-  <option value="" selected disabled>Non-selectable placeholder</option>
+  <option value="" selected disabled>Non-selectable placeholderwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</option>
   <option value="Mr">Mr</option>
   <option value="Miss">Miss</option>
   <option value="Mrs">Mrs</option>
@@ -62,7 +61,7 @@ cssPrefix: pf-v6-c-form-control
 {{#> form-control controlType="select" form-control--attribute='id="select-group" name="select-group" aria-label="Select group example"'}}
   <optgroup label="Group 1">
     <option value="Option 1">The first option</option>
-    <option value="Option 2" selected>Option groups (second option selected)</option>
+    <option value="Option 2" selected>Option groups (second option selected)wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</option>
   </optgroup>
   <optgroup label="Group 2">
     <option value="Option 3">The third option</option>
@@ -71,7 +70,7 @@ cssPrefix: pf-v6-c-form-control
 {{/form-control}}
 <br>
 {{#> form-control controlType="select" form-control--IsSuccess="true" form-control--attribute='id="select-group-success" name="select-group-success" aria-label="Success state select group example"'}}
-  <option value="">Valid option</option>
+  <option value="">Valid optionwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</option>
   <optgroup label="Group 1">
     <option value="Option 1">The first option</option>
     <option value="Option 2">The second option</option>
@@ -83,7 +82,7 @@ cssPrefix: pf-v6-c-form-control
 {{/form-control}}
 <br>
 {{#> form-control controlType="select" form-control--IsWarning="true" form-control--attribute='id="select-group-warning" name="select-group-warning" aria-label="Warning state select group example"'}}
-  <option value="">Warning option</option>
+  <option value="">Warning optionwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</option>
   <optgroup label="Group 1">
     <option value="Option 1">The first option</option>
     <option value="Option 2">The second option</option>
@@ -95,7 +94,7 @@ cssPrefix: pf-v6-c-form-control
 {{/form-control}}
 <br>
 {{#> form-control controlType="select" form-control--IsError="true" form-control--attribute='required aria-invalid="true" id="select-group-error" name="select-group-error" aria-label="Error state select group example"'}}
-  <option value="">Invalid option</option>
+  <option value="">Invalid optionwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</option>
   <optgroup label="Group 1">
     <option value="Option 1">The first option</option>
     <option value="Option 2" >The second option</option>
@@ -107,7 +106,7 @@ cssPrefix: pf-v6-c-form-control
 {{/form-control}}
 <br>
 {{#> form-control controlType="select" form-control--IsPlaceholder="true" form-control--IsDisabled="true" form-control--attribute='disabled id="select-disabled" name="select-disabled" aria-label="Disabled select example"'}}
-  <option value="" selected>Disabled</option>
+  <option value="" selected>Disabledwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww</option>
   <option value="Mr">Mr</option>
   <option value="Miss">Miss</option>
   <option value="Mrs">Mrs</option>
@@ -120,43 +119,43 @@ cssPrefix: pf-v6-c-form-control
 ### Textarea
 ```hbs
 {{#> form-control controlType="textarea" form-control--attribute='name="textarea-standard" id="textarea-standard" aria-label="Standard textarea example"'}}
-Standard
+Standardwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 {{/form-control}}
 <br>
 {{#> form-control controlType="textarea" form-control--IsReadonly="true" form-control--attribute='name="textarea-readonly" id="textarea-readonly" aria-label="Readonly textarea example"'}}
-Readonly
+Readonlywwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 {{/form-control}}
 <br>
 {{#> form-control controlType="textarea" form-control--IsPlain='true' form-control--IsReadonly="true" form-control--attribute='name="textarea-readonly-plain" id="textarea-readonly-plain" aria-label="Readonly plain textarea example"'}}
-Readonly plain
+Readonly plainwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 {{/form-control}}
 <br>
 {{#> form-control controlType="textarea" form-control--IsDisabled="true" form-control--attribute='name="textarea-disabled" id="textarea-disabled" aria-label="Disabled textarea example"'}}
-Disabled
+Disabledwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 {{/form-control}}
 <br>
 {{#> form-control controlType="textarea" form-control--IsSuccess="true" form-control--attribute='name="textarea-success" id="textarea-success" aria-label="Success state textarea example"'}}
-Success
+Successwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 {{/form-control}}
 <br>
 {{#> form-control controlType="textarea" form-control--IsWarning="true" form-control--attribute='name="textarea-warning" id="textarea-warning" aria-label="Warning state textarea example"'}}
-Warning
+Warningwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 {{/form-control}}
 <br>
 {{#> form-control controlType="textarea" form-control--IsError="true" form-control--attribute='required name="textarea-error" id="textarea-error" aria-label="Error state textarea example" aria-invalid="true"'}}
-Error
+Errorwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 {{/form-control}}
 <br>
 {{#> form-control controlType="textarea" form-control--attribute='name="textarea-resize-vertical" id="textarea-resize-vertical" aria-label="Resize vertical textarea example"' form-control--modifier="pf-m-resize-vertical"}}
-Resizes vertically
+Resizes verticallywwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 {{/form-control}}
 <br>
 {{#> form-control controlType="textarea" form-control--attribute='name="textarea-resize-horizontal" id="textarea-resize-horizontal" aria-label="Resize horizontal textarea example"' form-control--modifier="pf-m-resize-horizontal"}}
-Resizes horizontally
+Resizes horizontallywwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 {{/form-control}}
 <br>
 {{#> form-control controlType="textarea" form-control--attribute='name="textarea-resize-both" id="textarea-resize-both" aria-label="Resize both textarea example"' form-control--modifier="pf-m-resize-both"}}
-Resizes in both directions
+Resizes in both directionswwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
 {{/form-control}}
 ```
 
